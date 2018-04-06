@@ -1,3 +1,0 @@
-name: {{ cookiecutter.conda_environment }}
-dependencies:
-- python={{cookiecutter.python_version}}
