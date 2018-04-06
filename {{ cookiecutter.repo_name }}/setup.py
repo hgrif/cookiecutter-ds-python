@@ -8,12 +8,8 @@ def read(fname):
 
 setup(
     name="{{ cookiecutter.python_module_name }}",
-
     description="{{ cookiecutter.description }}",
-
     author="{{ cookiecutter.author_name }}",
-
     packages=find_packages(exclude=['data', 'figures', 'output', 'notebooks']),
-
     long_description=read('README.md'),
 )
