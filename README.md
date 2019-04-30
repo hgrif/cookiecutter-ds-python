@@ -26,5 +26,5 @@ $ conda install cookiecutter
 ------------
 
 ```bash
-$ cookiecutter https://github.com/drivendata/cookiecutter-data-science
+$ cookiecutter https://github.com/hgrif/cookiecutter-ds-python
 ```
