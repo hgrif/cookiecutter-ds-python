@@ -44,7 +44,7 @@ Install the virtual environment with conda and activate it:
 
 ```bash
 $ conda env create -f environment.yml
-$ source activate example-project 
+$ conda activate example-project 
 ```
 
 Install `{{ cookiecutter.python_module_name }}` in the virtual environment:
