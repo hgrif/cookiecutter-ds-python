@@ -17,6 +17,10 @@ Project Organization
     │
     ├── output/             <- Manipulated data, logs, etc.
     │
+    ├── paper/              <- Draft of paper using pandoc flavored markdown. Edit the `bib`
+    |                        and  `.md` files in this directory then `make paper` to compile.
+    |                        The required fonts are available in the `.pandoc` directory
+    |
     ├── tests/              <- Unit tests.
     │
     ├── {{ cookiecutter.python_module_name }}/      <- Python module with source code of this project.
