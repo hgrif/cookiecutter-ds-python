@@ -1,6 +1,6 @@
 # Cookiecutter Data Science for Python
 
-A minimal _Python_ project structure for doing and sharing data science work.
+A minimal _Python_ project structure for doing and sharing data science work and drafting an academic paper.
 
 This cookiecutter is based on [Cookiecutter Data Science](http://drivendata.github.io/cookiecutter-data-science/).
 
@@ -26,5 +26,5 @@ $ conda install cookiecutter
 ------------
 
 ```bash
-$ cookiecutter https://github.com/hgrif/cookiecutter-ds-python
+$ cookiecutter https://github.com/knaaptime/cookiecutter-ds-python
 ```
