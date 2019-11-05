@@ -4,7 +4,7 @@ author:
 - name: Elijah Knaap
   affiliation: University of California--Riverside
   email: knaap@ucr.edu
-bibliography: references/knaap.bib
+bibliography: references/references.bib
 ---
 
 Greatness goes here
