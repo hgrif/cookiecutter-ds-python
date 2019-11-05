@@ -8,6 +8,14 @@ PROJECT_NAME = {{ cookiecutter.repo_name }}
 CONDA_ENVIRONMENT = {{ cookiecutter.conda_environment }}
 PYTHON_VERSION = {{ cookiecutter.python_version }}
 
+SRC = paper/draft.md
+
+PDFS=$(SRC:.md=.pdf)
+HTML=$(SRC:.md=.html)
+TEX=$(SRC:.md=.tex)
+
+
+
 #################################################################################
 # COMMANDS                                                                      #
 #################################################################################
@@ -19,6 +27,25 @@ environment:
 git:
 	git init
 
+paper:	$(PDFS) $(HTML) $(TEX)
+
+pdf:	clean $(PDFS)
+html:	clean $(HTML)
+tex:	clean $(TEX)
+
+	
+%.html:	%.md
+	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w html --template=paper/.pandoc/html.template --css=$(HOME)/.pandoc/marked/kultiad-serif.css --filter pandoc-citeproc -o $@ $<
+
+%.tex:	%.md
+	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=xelatex --template=paper/.pandoc/xelatex.template  --filter pandoc-citeproc -o $@ $<
+
+
+%.pdf:	%.md
+	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=xelatex --template=paper/.pandoc/xelatex.template --filter pandoc-citeproc -o  $@ $<
+
+clean:
+	rm -f *.html *.pdf *.tex
 
 #################################################################################
 # Self Documenting Commands                                                     #
