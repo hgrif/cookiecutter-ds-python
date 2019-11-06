@@ -6,5 +6,10 @@
     "description": "A short description of the project.",
     "open_source_license": [ "MIT", "BSD", "Not open source" ],
     "conda_environment": "{{ cookiecutter.repo_name }}",
-    "python_version": "Python interpreter (e.g. 3, 3.5, 2.7)"
+    "python_version": "Python interpreter (e.g. 3, 3.5, 2.7)",
+    "_copy_without_render": [
+        "*.bib",
+        "*paper",
+        "rendered_dir/not_rendered_file.ini"
+    ]
 }
