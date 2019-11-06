@@ -1,3 +1,11 @@
 name: {{ cookiecutter.conda_environment }}
+channels:
+  - conda-forge
+  - defaults
 dependencies:
-- python={{cookiecutter.python_version}}
+  - python={{cookiecutter.python_version}}
+  - jupyterlab
+  - pandoc               # necessary to compile the paper
+  - pandoc-crossref      # necessary to compile the paper
+  - pip
+    - pandoc-include
