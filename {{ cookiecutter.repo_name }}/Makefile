@@ -45,7 +45,7 @@ tex:	clean $(TEX)
 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=xelatex --template=paper/.pandoc/xelatex.template --filter pandoc-citeproc -o  $@ $<
 
 clean:
-	rm -f *.html *.pdf *.tex
+	rm -f paper/*.html paper/*.pdf paper/*.tex
 
 #################################################################################
 # Self Documenting Commands                                                     #

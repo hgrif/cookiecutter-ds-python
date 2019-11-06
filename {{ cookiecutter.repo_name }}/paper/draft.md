@@ -7,4 +7,18 @@ author:
 bibliography: paper/references.bib
 ---
 
-Greatness goes here
+
+# Greatness goes here
+
+thanks to @Knaap2017
+
+## Sub-greatness explained in greater detail
+
+
+
+# References
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\setlength{\parskip}{8pt}
+\vspace*{-0.2in}
+\noindent

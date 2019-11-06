@@ -18,9 +18,9 @@ Project Organization
     ├── output/             <- Manipulated data, logs, etc.
     │
     ├── paper/              <- Draft of paper using pandoc flavored markdown. Edit the `bib`
-    |                        and  `.md` files in this directory then `make paper` to compile.
-    |                        The required fonts are available in the `.pandoc` directory
-    |
+    │                        and  `.md` files in this directory then `make paper` to compile.
+    │                        The required fonts are available in the `.pandoc` directory
+    │
     ├── tests/              <- Unit tests.
     │
     ├── {{ cookiecutter.python_module_name }}/      <- Python module with source code of this project.
@@ -54,5 +54,8 @@ $ conda activate example-project
 Install `{{ cookiecutter.python_module_name }}` in the virtual environment:
 
 ```bash
-$ pip install --editable .
+$ python setup.py develop
 ```
+
+Write in the paper directory. Use `make paper` to compile the draft to pdf, html and latex. 
+If your article requires formatting for a particular journal, you can recompile the output latex along with the appropriate template
