@@ -30,19 +30,20 @@ directory.
 If the primary analyses are done in the notebooks, you can use `jupyter nbconvert --to notebook --execute mynotebook.ipynb` to execute them from the
 Makefile
 
-Write in the paper directory.
+Write prose in the paper directory.
 Use `make paper` to compile the draft to pdf, html and latex.
 If your article requires formatting for a particular journal, you can recompile the output
 latex using an
-[appropriate template](http://www.latextemplates.com/template/elseviers-elsarticle-document-class).
+[appropriate template](http://www.latextemplates.com/template/elseviers-elsarticle-document-class). The Makefile and default dependencies are setup to use some handy pandoc extensions for academic writing 
 
-The Makefile and default dependencies are setup for
-[pandoc-crossref](https://lierdakil.github.io/pandoc-crossref/) and
-[pandoc-include](https://github.com/DCsunset/pandoc-include) which makes it easy to generate
-figures or
+  - [pandoc-crossref](https://lierdakil.github.io/pandoc-crossref/) so you can easily refer to equations, figures, tables, etc without leaving markdown
+
+  - [pandoc-include](https://github.com/DCsunset/pandoc-include) so you can include external files by referencing them in the text. This lets you modularize your draft into different files if you like, and also generate figures or
 [LaTeX model summaries](https://www.statsmodels.org/stable/generated/statsmodels.iolib.summary2.Summary.as_latex.html)
 directly from code, then include them using a reference in the draft text.
-You can also drop down into latex in the markdown files if you prefer
+
+
+You can always drop down into latex in the markdown files if you prefer.
 
 ## Project Organization
 
