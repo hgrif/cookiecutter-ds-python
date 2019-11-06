@@ -28,10 +28,16 @@ environment:
 git:
 	git init
 
+## Compile the current draft into latex, html, and pdf
 paper:	$(PDFS) $(HTML) $(TEX)
 
+## Compile the current draft into pdf
 pdf:	clean $(PDFS)
+
+## Compile the current draft into html
 html:	clean $(HTML)
+
+## Compile the current draft into latex
 tex:	clean $(TEX)
 
 	
@@ -45,9 +51,11 @@ tex:	clean $(TEX)
 %.pdf:	%.md
 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=xelatex --template=paper/.pandoc/xelatex.template --filter $(PANDOC_INCLUDE_PATH) --filter pandoc-crossref --filter pandoc-citeproc  -o $@ $<
 
+## Remove old versions of compiled html, pdf, latex 
 clean:
 	rm -f paper/*.html paper/*.pdf paper/*.tex
 
+## Execute analytical code
 analysis:
 	# execute code here. If you need to run a notebook you can use
 	# jupyter nbconvert --to notebook --execute analysis.ipynb 
