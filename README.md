@@ -1,30 +1,20 @@
-# Cookiecutter Data Science for Python
+# Cookiecutter Academic Data Science in Python
 
-A minimal _Python_ project structure for doing and sharing data science work and drafting an academic paper.
-
-This cookiecutter is based on [Cookiecutter Data Science](http://drivendata.github.io/cookiecutter-data-science/).
-
+A minimal Python project structure for doing and sharing data science research and drafting an academic paper in markdown. It includes a set of open fonts and latex templates for compiling beautiful documents from markdown and Python source files.
 
 ### Requirements to use the cookiecutter template:
 -----------
- - Python 2.7 or 3.5
- - [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0: This can be installed with pip by or conda depending on how you manage your Python packages:
-
-``` bash
-$ pip install cookiecutter
-```
-
-or
+ - [Anaconda or miniconda](https://www.anaconda.com/distribution/)
+ - [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
 
 ``` bash
 $ conda config --add channels conda-forge
 $ conda install cookiecutter
 ```
 
-
 ### To start a new project, run:
 ------------
 
 ```bash
-$ cookiecutter https://github.com/knaaptime/cookiecutter-ds-python
+$ cookiecutter https://github.com/knaaptime/cookiecutter-academic-python
 ```

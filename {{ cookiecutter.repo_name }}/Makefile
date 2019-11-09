@@ -54,10 +54,13 @@ tex:	clean $(TEX)
 clean:
 	rm -f paper/*.html paper/*.pdf paper/*.tex
 
-## Execute analytical code
-analysis:
-	# execute code here. If you need to run a notebook you can use
-	# jupyter nbconvert --to notebook --execute analysis.ipynb 
+## Run notebooks
+notebooks:
+	jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=python3 notebooks/*.ipynb;
+
+## Run any necessary scripts
+scripts:
+	# python example.py 
 
 #################################################################################
 # Self Documenting Commands                                                     #

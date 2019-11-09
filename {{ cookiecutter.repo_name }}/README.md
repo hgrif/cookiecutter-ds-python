@@ -25,10 +25,8 @@ Write reuseable code in the module directory and jupyter notebooks in the notebo
 directory. 
 
   - Add any necessary dependencies to the `environment.yml` 
-  - Add the appropriate commands under the
-`analysis` command in the Makefile.
-If the primary analyses are done in the notebooks, you can use `jupyter nbconvert --to notebook --execute mynotebook.ipynb` to execute them from the
-Makefile
+  - `make notebooks` will execute all notebooks in the notebooks directory
+  - if you need to run additional scripts, add the appropriate commands to the Makefile
 
 Write prose in the paper directory.
 Use `make paper` to compile the draft to pdf, html and latex.
@@ -56,7 +54,7 @@ You can always drop down into latex in the markdown files if you prefer.
     │                         description, a number (for ordering), and the creator's initials,
     │                        e.g. `initial-data-exploration-01-hg`.
     │
-    ├── output/             <- Manipulated data, logs, etc.
+    ├── output/             <- Manipulated data, logs, figures, etc.
     │
     ├── paper/              <- Draft of paper using pandoc flavored markdown. Edit the `bib`
     │                        and  `.md` files in this directory then `make paper` to compile.
