@@ -8,4 +8,5 @@ dependencies:
   - pandoc               # necessary to compile the paper
   - pandoc-crossref      # necessary to compile the paper
   - pip
+  - pip:
     - pandoc-include     # necessary to compile the paper
