@@ -41,7 +41,7 @@ tex:	clean $(TEX)
 
 	
 %.html:	%.md
-	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w html --template=paper/.pandoc/html.template --css=$(HOME)/.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o $@ $<
+	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w html --template=paper/.pandoc/html.template --css=paper/.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o $@ $<
 
 %.tex:	%.md
 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=xelatex --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o $@ $<
