@@ -4,9 +4,10 @@ channels:
   - defaults
 dependencies:
   - python={{cookiecutter.python_version}}
-  - jupyterlab
-  - pandoc               # necessary to compile the paper
-  - pandoc-crossref      # necessary to compile the paper
+  - jupyterlab                      # necessary to run notebooks
+  - pandoc                          # necessary to compile the paper
+  - pandoc-crossref                 # necessary to compile the paper
   - pip
   - pip:
-    - pandoc-include     # necessary to compile the paper
+    - pandoc-include                 # necessary to compile the paper
+    - pandoc-latex-admonition        # necessary to compile the paper

@@ -40,6 +40,10 @@ latex using an
 [LaTeX model summaries](https://www.statsmodels.org/stable/generated/statsmodels.iolib.summary2.Summary.as_latex.html)
 directly from code, then include them using a reference in the draft text.
 
+ - [pandoc-citeproc](https://github.com/jgm/pandoc-citeproc/blob/master/man/pandoc-citeproc.1.md) so you can uses bibtex references and automatically build bibliographies
+ 
+ - [pandoc-latex-admonitions](https://github.com/chdemko/pandoc-latex-admonition) to add convenient markup and callouts for different types of content. These can be particularly useful for adding notes or calling attention to certain sections when working with coauthors.
+
 
 You can always drop down into latex in the markdown files if you prefer.
 
