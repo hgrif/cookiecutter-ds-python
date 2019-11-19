@@ -9,11 +9,15 @@ CONDA_ENVIRONMENT = {{ cookiecutter.conda_environment }}
 PYTHON_VERSION = {{ cookiecutter.python_version }}
 
 SRC = paper/draft.md
+REVSRC = paper/revision.md
 
 PDFS=$(SRC:.md=.pdf)
 HTML=$(SRC:.md=.html)
 TEX=$(SRC:.md=.tex)
 
+REVPDFS=$(REVSRC:.md=.pdf)
+REVHTML=$(REVSRC:.md=.html)
+REVTEX=$(REVSRC:.md=.tex)
 
 
 #################################################################################
@@ -61,6 +65,17 @@ notebooks:
 ## Run any necessary scripts
 scripts:
 	# python example.py 
+
+## Compole revised deaft and texdiff with original
+revision: $(REVPDFS) $(REVHTML) $(REVTEX) paper
+	latexdiff paper/draft.tex paper/revision.tex > paper/diff.tex
+	xelatex -output-directory=paper/ paper/diff
+	xelatex -output-directory=paper/ paper/diff
+	rm -f paper/*.aux paper/*.bcf paper/*.log paper/*.out paper/*.run.xml paper/*.bbl *paper/*.blg 
+
+
+
+####################################################
 
 #################################################################################
 # Self Documenting Commands                                                     #
