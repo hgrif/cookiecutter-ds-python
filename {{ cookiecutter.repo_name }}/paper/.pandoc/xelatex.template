@@ -1,5 +1,5 @@
 \documentclass[11pt,article,oneside]{memoir}
-\usepackage{org-preamble-xelatex}
+\usepackage{paper/.pandoc/org-preamble-xelatex}
 
 $if(listings)$
 \usepackage{listings}
