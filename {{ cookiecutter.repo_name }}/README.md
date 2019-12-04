@@ -9,41 +9,24 @@ and Kieran Healy’s [custom latex styles](https://github.com/hgrif/cookiecutter
 tweaked Kieran’s styles to use open fonts and included them in the paper/.pandoc directory
 in case they need to be installed. This template includes everything you need to compile beautiful documents from a set of markdown and Python source files.
 
+
 ## Set up
 
-Create a new conda environment and activate it, then install `{{ cookiecutter.python_module_name }}` in the new environment:
-
-```bash
-$ conda env create -f environment.yml
-$ conda activate example-project 
-$ python setup.py develop
-```
+- clone this repository
+- run `make environment` to build the conda environment with necessary dependencies
+- run `conda activate {{cookiecutter.project_name}}` each time you work on the project
+- if you make changes to the dependencies, you can run `make environment-update` to rebuild the conda environment to the new specifications
 
 ## Use
 
-Write reuseable code in the module directory and jupyter notebooks in the notebooks
-directory. 
+Write reuseable code in the module directory and jupyter notebooks in the notebooks directory.
 
-  - Add any necessary dependencies to the `environment.yml` 
-  - `make notebooks` will execute all notebooks in the notebooks directory
-  - if you need to run additional scripts, add the appropriate commands to the Makefile
-
-Write prose in the paper directory.
-Use `make paper` to compile the draft to pdf, html and latex.
-If your article requires formatting for a particular journal, you can recompile the output
-latex using an
-[appropriate template](http://www.latextemplates.com/template/elseviers-elsarticle-document-class). The Makefile and default dependencies are setup to use some handy pandoc extensions for academic writing 
-
-  - [pandoc-crossref](https://lierdakil.github.io/pandoc-crossref/) so you can easily refer to equations, figures, tables, etc without leaving markdown
-
-  - [pandoc-include](https://github.com/DCsunset/pandoc-include) so you can include external files by referencing them in the text. This lets you modularize your draft into different files if you like, and also generate figures or
-[LaTeX model summaries](https://www.statsmodels.org/stable/generated/statsmodels.iolib.summary2.Summary.as_latex.html)
-directly from code, then include them using a reference in the draft text.
-
- - [pandoc-citeproc](https://github.com/jgm/pandoc-citeproc/blob/master/man/pandoc-citeproc.1.md) so you can uses bibtex references and automatically build bibliographies
- 
- - [pandoc-latex-admonitions](https://github.com/chdemko/pandoc-latex-admonition) to add convenient markup and callouts for different types of content. These can be particularly useful for adding notes or calling attention to certain sections when working with coauthors.
-
+- `make notebooks` will execute all notebooks in the notebooks directory
+- `make paper` will compile the draft to pdf, html and latex.
+- `make revision` if necessary will compile the response to reviewers, the revised draft, and run latex diff on the two drafts 
+- use [pandoc-crossref](https://lierdakil.github.io/pandoc-crossref/) syntac to refer to equations, figures, tables, etc without leaving markdown
+- use [pandoc-include](https://github.com/DCsunset/pandoc-include) if you prefer to work in external files and reference them from `draft.md`
+- when revising a draft, [pandoc-latex-admonitions](https://github.com/chdemko/pandoc-latex-admonition) can be helpful for responding to particular reviewer critiques
 
 You can always drop down into latex in the markdown files if you prefer.
 

@@ -28,6 +28,11 @@ REVTEX=$(REVSRC:.md=.tex)
 environment:
 	conda env create -f environment.yml
 
+## Update the environment in case of changes to dependencies
+environment-update:
+	conda env update --name PROJECT_NAME --file environment.yml
+
+## Initialize a git repository
 git:
 	git init
 

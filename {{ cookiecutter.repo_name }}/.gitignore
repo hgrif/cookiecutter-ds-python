@@ -92,8 +92,3 @@ ENV/
 
 # Pycharm
 .idea
-
-# Cookiecutter folders
-/data/
-/figures/
-/output/
