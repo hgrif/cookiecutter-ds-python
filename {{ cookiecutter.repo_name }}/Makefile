@@ -72,6 +72,7 @@ revision: $(REVPDFS) $(REVHTML) $(REVTEX) paper
 	xelatex -output-directory=paper/ paper/diff
 	xelatex -output-directory=paper/ paper/diff
 	rm -f paper/*.aux paper/*.bcf paper/*.log paper/*.out paper/*.run.xml paper/*.bbl *paper/*.blg 
+	pandoc paper/review_response.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o paper/review_response.pdf
 
 
 
