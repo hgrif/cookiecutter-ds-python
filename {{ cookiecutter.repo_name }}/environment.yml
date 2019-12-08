@@ -11,3 +11,4 @@ dependencies:
   - pip:
     - pandoc-include                 # necessary to compile the paper
     - pandoc-latex-admonition        # necessary to compile the paper
+    - watermark                      # add metadata to notebooks
