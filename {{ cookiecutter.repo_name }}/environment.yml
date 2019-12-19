@@ -6,7 +6,7 @@ dependencies:
   - python={{cookiecutter.python_version}}
   - jupyter                         # necessary to run notebooks
   - jupyterlab                      # necessary to run notebooks
-  - pandoc =2.7                     # necessary to compile the paper
+  - pandoc >=2.9                    # necessary to compile the paper
   - pandoc-crossref                 # necessary to compile the paper
   - pip
   - pip:
