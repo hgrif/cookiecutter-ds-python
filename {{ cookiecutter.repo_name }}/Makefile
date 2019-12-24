@@ -27,6 +27,8 @@ REVTEX=$(REVSRC:.md=.tex)
 ## Set up python interpreter environment
 environment:
 	conda env create -f environment.yml
+	conda activate PROJECT_NAME
+	python setup.py develop
 
 ## Update the environment in case of changes to dependencies
 environment-update:
@@ -37,7 +39,7 @@ git:
 	git init
 
 ## Compile the current draft into latex, html, and pdf
-paper:	$(PDFS) $(HTML) $(TEX)
+paper:	$(HTML) $(TEX) $(PDFS) 
 
 ## Compile the current draft into pdf
 pdf:	clean $(PDFS)
@@ -58,6 +60,7 @@ tex:	clean $(TEX)
 
 %.pdf:	%.md
 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=xelatex --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o $@ $<
+	rm -rf paper/draft.aux paper/draft.fdb_latexmk paper/draft.fls paper/draft.log
 
 ## Remove old versions of compiled html, pdf, latex 
 clean:
