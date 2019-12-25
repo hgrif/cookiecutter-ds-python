@@ -1,5 +1,6 @@
 \documentclass[11pt,article,oneside]{memoir}
 \usepackage{paper/.pandoc/org-preamble-xelatex}
+\usepackage{lscape}
 
 $if(listings)$
 \usepackage{listings}
