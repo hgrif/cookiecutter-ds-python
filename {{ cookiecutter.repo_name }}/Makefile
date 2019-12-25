@@ -59,8 +59,10 @@ tex:	clean $(TEX)
 
 
 %.pdf:	%.md
-	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=xelatex --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o $@ $<
-	rm -rf paper/draft.aux paper/draft.fdb_latexmk paper/draft.fls paper/draft.log
+	pandoc paper/appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/appendix.tex
+	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=xelatex --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  --include-after-body paper/appendix.tex -o $@ $<
+	rm -rf paper/draft.aux paper/draft.fdb_latexmk paper/draft.fls paper/draft.log paper/appendix.tex
+
 
 ## Remove old versions of compiled html, pdf, latex 
 clean:
