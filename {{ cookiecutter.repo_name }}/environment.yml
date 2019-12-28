@@ -9,8 +9,8 @@ dependencies:
   - tabulate                        # generate markdown tables 
   - pandoc >=2.9                    # necessary to compile the paper
   - pandoc-crossref                 # necessary to compile the paper
+  - watermark                       # add metadata to notebooks
   - pip
   - pip:
     - pandoc-include                 # necessary to compile the paper
     - pandoc-latex-admonition        # necessary to compile the paper
-    - watermark                      # add metadata to notebooks
