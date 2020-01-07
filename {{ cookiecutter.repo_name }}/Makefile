@@ -33,6 +33,12 @@ environment:
 environment-update:
 	conda env update --name PROJECT_NAME --file environment.yml
 
+## If you get an error running make notebooks, this will install the kernel manually; 
+## must be run from inside the conda environment
+kernel:
+	python -m ipykernel install --name $(PROJECT_NAME) --user
+
+
 ## Initialize a git repository
 git:
 	git init
