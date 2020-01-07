@@ -26,9 +26,8 @@ REVTEX=$(REVSRC:.md=.tex)
 
 ## Set up python interpreter environment
 environment:
-	conda env create -f environment.yml
-	conda activate PROJECT_NAME
-	python setup.py develop
+	conda env create -f environment.yml; source activate $(PROJECT_NAME); python setup.py develop
+
 
 ## Update the environment in case of changes to dependencies
 environment-update:
