@@ -7,7 +7,7 @@ dependencies:
   - jupyter                         # necessary to run notebooks
   - jupyterlab                      # necessary to run notebooks
   - tabulate                        # generate markdown tables 
-  - pandoc >=2.9                    # necessary to compile the paper
+  - pandoc =2.7                     # necessary to compile the paper
   - pandoc-crossref                 # necessary to compile the paper
   - watermark                       # add metadata to notebooks
   - pip
