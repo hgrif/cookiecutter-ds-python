@@ -35,11 +35,11 @@ $if(title)$
 \title{\bigskip $title$}
 $endif$
 
-%\author{$for(author)$$author$$sep$\\$endfor$}
+$-- \author{$for(author)$$author$$sep$\\$endfor$}
 
 \author{$for(author)$\large $author.name$\vspace{0.05in} \newline\normalsize\emph{$author.affiliation$} \newline\footnotesize \url{$author.email$}\vspace*{0.2in}\newline $sep$ \and $endfor$}
 
-%\author{$for(author)$$author.name$ ($author.affiliation$)$sep$ \and $endfor$}
+$-- \author{$for(author)$$author.name$ ($author.affiliation$)$sep$ \and $endfor$}
 
 \date{}
 
