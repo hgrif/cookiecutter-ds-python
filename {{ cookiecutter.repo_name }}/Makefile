@@ -31,7 +31,7 @@ environment:
 
 ## Update the environment in case of changes to dependencies
 environment-update:
-	conda env update --name PROJECT_NAME --file environment.yml
+	conda env update --name $(PROJECT_NAME) --file environment.yml
 
 ## If you get an error running make notebooks, this will install the kernel manually; 
 ## must be run from inside the conda environment
