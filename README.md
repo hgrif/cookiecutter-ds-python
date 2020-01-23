@@ -39,25 +39,32 @@ unless you want to update the template
 
 ## Project Organization
 
+Demo files for all necessary documents are part of the template
+
     │
-    ├── data/               <- The original, immutable data dump. 
+    ├── data/                    <- The original, immutable data dump. 
     │
-    ├── figures/            <- Figures output by scripts or notebooks.
+    ├── figures/                 <- Figures output by scripts or notebooks.
     │
-    ├── notebooks/          <- Jupyter notebooks.
+    ├── notebooks/               <- Jupyter notebooks.
     │
-    ├── paper/              <- Draft of paper using pandoc flavored markdown. Edit the `bib`
-    │                        and  `.md` files in this directory then `make paper` to compile.
-    │                        The required fonts are available in the `.pandoc` directory
+    ├── paper
+    │   ├── .pandoc/             <- LaTeX templates and Fonts. Ignore this directory unless you need to install fonts
+    │   ├── appendix.md          <- Appendix for extra tables and figs if necessary.
+    │   ├── draft.md             <- Draft of manuscript.
+    │   ├── references.bib       <- References.
+    │   ├── review_response.md   <- Response to article reviewers
+    │   └── revision.md          <- Revised manuscript for resubmission, if necessary.
+    │                               `make revision` will build the revised draft and run latexdiff between draft.md and revision.md
     │
-    ├── tables/              <- Tables output by scripts or notebooks stored as markdown or latex files
+    ├── tables/                  <- Tables output by scripts or notebooks stored as markdown or latex files
     │
     ├── {{ cookiecutter.python_module_name }}/      <- Python module with source code for the project.
     │
-    ├── environment.yml     <- conda virtual environment definition file.
+    ├── environment.yml          <- conda virtual environment definition file.
     │
     ├── LICENSE
     │
-    ├── Makefile            <- Makefile with commands like `make environment`
+    ├── Makefile                 <- Makefile with commands like `make environment`
     │
-    └── README.md           <- The top-level README for collaborators using this project.
+    └── README.md                <- The top-level README for collaborators using this project.
