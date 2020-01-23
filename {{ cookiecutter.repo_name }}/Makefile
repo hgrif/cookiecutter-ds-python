@@ -44,16 +44,16 @@ git:
 	git init
 
 ## Compile the current draft into latex, html, and pdf
-paper:	$(HTML) $(TEX) $(PDFS) 
+paper:	clean $(HTML) $(TEX) $(PDFS) 
 
 ## Compile the current draft into pdf
-pdf:	clean $(PDFS)
+pdf:	$(PDFS)
 
 ## Compile the current draft into html
-html:	clean $(HTML)
+html:	$(HTML)
 
 ## Compile the current draft into latex
-tex:	clean $(TEX)
+tex:	$(TEX)
 
 	
 %.html:	%.md
