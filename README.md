@@ -1,4 +1,4 @@
-# Markduscript
+# Markduscript: Markdown Manuscripts
 
 ### A Cookiecutter for Reproducible Research and Manuscripts in Markdown
 
