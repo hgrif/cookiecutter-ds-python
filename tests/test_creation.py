@@ -56,11 +56,10 @@ def test_setup(default_baked_project):
 
 
 def test_folders(default_baked_project):
-    expected_dirs = ["data", "figures", "notebooks", "output", "tests", "project_name"]
+    expected_dirs = ["data", "figures", "notebooks", "paper", "tables", "project_name"]
 
     ignored_dirs = [
         default_baked_project,
-        os.path.join(default_baked_project, "__pycache__"),
     ]
 
     abs_expected_dirs = [os.path.join(default_baked_project, d) for d in expected_dirs]
