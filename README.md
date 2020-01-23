@@ -16,6 +16,7 @@ in case they need to be installed) so there's no trouble fighting the latex stac
 
  - [Anaconda or miniconda](https://www.anaconda.com/distribution/)
  - [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
+- a LaTeX distribution like [TexLive](https://www.tug.org/texlive/)
 
 ``` bash
 conda config --add channels conda-forge
@@ -59,4 +60,4 @@ unless you want to update the template
     │
     ├── Makefile            <- Makefile with commands like `make environment`
     │
-    └──  README.md           <- The top-level README for collaborators using this project.
+    └── README.md           <- The top-level README for collaborators using this project.
