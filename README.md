@@ -1,6 +1,6 @@
 # Markduscript
 
-### A Cookiecutter for Reproducible Research in `plain text`
+### A Cookiecutter for Reproducible Research and Manuscripts in Markdown
 
 This [cookiecutter](https://github.com/cookiecutter/cookiecutter) template provides a minimal project structure for doing code-centric reproducible research and drafting an academic paper in markdown (and responding to reviwers, of course). It is configured with a set of latex templates and open fonts for compiling beautiful documents from markdown and Python (or R) source files. Consider it a pythonic take on [plain text social science](http://plain-text.co/) and data science.
 
