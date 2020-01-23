@@ -23,7 +23,7 @@ $if(csl-refs)$
 \setlength{\cslhangindent}{1.5em}
 \newenvironment{cslreferences}%
   {$if(csl-hanging-indent)$\setlength{\parindent}{0pt}%
-  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces$endif$}%
+  \everypar{\setlength{\hangindent}{\cslhangindent} \setlength{\parskip}{4pt}}\ignorespaces$endif$}%
   {\par}
 $endif$
 
