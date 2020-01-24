@@ -1,4 +1,4 @@
-# Mandown
+# Man Down!
 
 ### A Cookiecutter Template for Reproducible Research and Scholarly Manuscripts in Markdown
 
