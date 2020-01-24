@@ -81,7 +81,7 @@ notebooks:
 scripts:
 	# python example.py 
 
-## Compole revised deaft and texdiff with original
+## Compile revised draft and texdiff with original
 revision: $(REVPDFS) $(REVHTML) $(REVTEX) paper
 	latexdiff paper/draft.tex paper/revision.tex > paper/diff.tex
 	xelatex -output-directory=paper/ paper/diff

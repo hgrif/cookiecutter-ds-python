@@ -23,24 +23,42 @@ in case they need to be installed) so there's no trouble fighting the latex stac
  - [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
 - a LaTeX distribution like [TexLive](https://www.tug.org/texlive/)
 
+Everything else is self-contained. If you need the cookiecutter package, run
 ``` bash
-conda config --add channels conda-forge
-conda install cookiecutter
+conda install -c conda-forge cookiecutter
 ```
 
 ### To start a new manuscript, run:
 
 ```bash
-cookiecutter https://github.com/knaaptime/mandown
+cookiecutter gh:knaaptime/mandown
 ```
 
-from then on, you can simply use
+Answer the questions at the prompt, then `cd` into your new project directory and run
 
 ```bash
-cookiecutter mandown
+make environment
+```
+Which will install pandoc and all dependencies necessary to build the paper. The following commands are also available in the makefile (and will be shown with a generic `make`):
+
+```
+Available rules:
+
+clean               Remove old versions of compiled html, pdf, latex
+environment         Set up python interpreter environment
+environment-update  Update the environment in case of changes to dependencies
+git                 Initialize a git repository
+html                Compile the current draft into html
+kernel              If you get an error running make notebooks, this will install the kernel manually; must
+                    be run from inside the conda environment
+notebooks           Run notebooks
+paper               Compile the current draft into latex, html, and pdf
+pdf                 Compile the current draft into pdf
+revision            Compile revised draft and texdiff with original
+scripts             Run any necessary scripts
+tex                 Compile the current draft into latex
 ```
 
-unless you want to update the template
 
 ## Project Organization
 
