@@ -1,4 +1,4 @@
-<h1 style='text-align:center'><span style="color:SlateBlue">man</span><span style="color:DarkRed">down</span></h1>
+<h1 align="center"><span style="color:SlateBlue">man</span><span style="color:DarkRed">down</span></h1>
 
 <p align="center">
 <img height=300 src='https://user-images.githubusercontent.com/4213368/73036198-a3a9f200-3dff-11ea-8fb9-3ec91c9939b3.png'>
