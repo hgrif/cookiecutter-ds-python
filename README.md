@@ -15,7 +15,7 @@ Just code in Python (or R), write prose in markdown, then `make paper` to compil
 
 The project is is inspired by the
 [minimal cookiecutter data science](https://github.com/hgrif/cookiecutter-ds-python) project template
-and Kieran Healy’s [custom latex styles](https://github.com/hgrif/cookiecutter-ds-python). I've
+and Kieran Healy’s [custom latex styles](https://github.com/kjhealy/latex-custom-kjh). I've
 updated Kieran’s styles for newer versions of pandoc and tweaked them to use open fonts (which are [included](https://github.com/knaaptime/cookiecutter-academic-python/tree/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/paper/.pandoc/fonts)
 in case they need to be installed) so there's no trouble fighting the latex stack. 
 
