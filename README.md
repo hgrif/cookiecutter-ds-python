@@ -4,7 +4,7 @@
 <img height=300 src='https://user-images.githubusercontent.com/4213368/73036198-a3a9f200-3dff-11ea-8fb9-3ec91c9939b3.png'>
 </p>
 
-## A Cookiecutter Template for Reproducible Research and Scholarly Manuscripts in Markdown
+## Reproducible Research and Scholarly Manuscripts in Markdown
 
 
 This [cookiecutter](https://github.com/cookiecutter/cookiecutter) template provides a minimal project structure for doing code-centric reproducible research and drafting an academic paper in markdown (and responding to reviwers, of course). It is configured with a set of latex templates and open fonts for compiling beautiful documents from markdown and Python (or R) source files. Consider it a pythonic take on [plain text social science](http://plain-text.co/) and data science.
