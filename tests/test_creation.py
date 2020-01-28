@@ -1,6 +1,6 @@
 import os
 import shutil
-
+import subprocess
 from cookiecutter import main
 import pytest
 
@@ -81,3 +81,9 @@ def no_curlies(filepath):
     template_strings_in_file = [s in data for s in template_strings]
 
     return not any(template_strings_in_file)
+
+
+def test_paper(default_baked_project):
+    make_process = os.system(f" cd {default_baked_project}; make paper")
+    paper_path = os.path.join(default_baked_project, "paper/draft.pdf")
+    assert os.path.exists(paper_path)

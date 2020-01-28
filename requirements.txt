@@ -1,2 +1,10 @@
 cookiecutter
 pytest
+pandoc-include
+pandoc-latex-admonitions
+jupyter
+jupyterlab
+tabulate
+pandoc >=2.7
+pandoc-crossref
+watermark

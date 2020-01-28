@@ -1,5 +1,8 @@
 <h1 align="center"><span style="color:SlateBlue">man</span><span style="color:DarkRed">down</span></h1>
 
+![Travis (.org)](https://img.shields.io/travis/knaaptime/mandown)
+[![DOI](https://zenodo.org/badge/219844156.svg)](https://zenodo.org/badge/latestdoi/219844156)
+
 <p align="center">
 <img height=300 src='https://user-images.githubusercontent.com/4213368/73036198-a3a9f200-3dff-11ea-8fb9-3ec91c9939b3.png'>
 </p>
@@ -110,4 +113,19 @@ pdf                 Compile the current draft into pdf
 revision            Compile revised draft and texdiff with original
 scripts             Run any necessary scripts
 tex                 Compile the current draft into latex
+```
+
+## Citation
+
+If you'd like to cite this repository, I recommend:
+
+```latex
+@software{Knaap2020,
+author = {Knaap, Elijah},
+doi = {10.5281/zenodo.3629662},
+month = {jan},
+title = {mandown: scholarly manuscripts in markdown},
+url = {https://zenodo.org/record/3629662},
+year = {2020}
+}
 ```
