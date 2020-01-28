@@ -1,7 +1,7 @@
 cookiecutter
 pytest
 pandoc-include
-pandoc-latex-admonitions
+pandoc-latex-admonition
 jupyter
 jupyterlab
 tabulate
