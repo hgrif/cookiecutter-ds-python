@@ -8,6 +8,7 @@ dependencies:
   - pandoc >=2.7
   - pandoc-crossref
   - pytest
+  - cookiecutter
   - watermark
   - pip
   - pip:
