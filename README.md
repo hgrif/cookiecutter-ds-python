@@ -4,8 +4,7 @@
 <img height=300 src='https://user-images.githubusercontent.com/4213368/73036198-a3a9f200-3dff-11ea-8fb9-3ec91c9939b3.png'>
 </p>
 
-## Reproducible Research and Scholarly Manuscripts in Markdown
-
+## Reproducible Research and Scholarly *Man*uscripts in Mark*down*
 
 This [cookiecutter](https://github.com/cookiecutter/cookiecutter) template provides a minimal project structure for doing code-centric reproducible research and drafting an academic paper in markdown (and responding to reviwers, of course). It is configured with a set of latex templates and open fonts for compiling beautiful documents from markdown and Python (or R) source files. Consider it a pythonic take on [plain text social science](http://plain-text.co/) and data science.
 
@@ -17,18 +16,19 @@ and Kieran Healy’s [custom latex styles](https://github.com/kjhealy/latex-cust
 updated Kieran’s styles for newer versions of pandoc and tweaked them to use open fonts (which are [included](https://github.com/knaaptime/cookiecutter-academic-python/tree/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/paper/.pandoc/fonts)
 in case they need to be installed). The build chain uses xelatex and your system fonts so there's no trouble fighting the latex stack.
 
-### Requirements to use the cookiecutter template:
+### Requirements to use the cookiecutter template
 
- - [Anaconda or miniconda](https://www.anaconda.com/distribution/)
- - [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
+- [Anaconda or miniconda](https://www.anaconda.com/distribution/)
+- [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
 - a LaTeX distribution like [TexLive](https://www.tug.org/texlive/)
 
 Everything else is self-contained. If you need the cookiecutter package, run
+
 ``` bash
 conda install -c conda-forge cookiecutter
 ```
 
-### To start a new manuscript, run:
+### To start a new manuscript
 
 ```bash
 cookiecutter gh:knaaptime/mandown
@@ -40,8 +40,9 @@ and answer the questions at the prompt
 
 Demo files for all necessary documents are part of the template
 
+```text
     │
-    ├── data/                    <- The original, immutable data dump. 
+    ├── data/                    <- The original, immutable data dump.
     │
     ├── figures/                 <- Figures output by scripts or notebooks.
     │
@@ -67,14 +68,18 @@ Demo files for all necessary documents are part of the template
     ├── Makefile                 <- Makefile with commands like `make environment`
     │
     └── README.md                <- The top-level README for collaborators using this project.
+```
 
 ## Building a Manuscript
 
 To start working on the manuscript, `cd` into the new project directory and run
+
 ```bash
 make environment
 ```
+
 which will do the following:
+
 - create a new conda environment (that you named at the prompt)
 - activate the environment
 - install pandoc and a few other utilities necessary to build the paper
@@ -85,10 +90,11 @@ To build the paper, edit the `draft.md` and `references.bib` files as appropriat
 ```bash
 make paper
 ```
+
 to build pdf, html, and latex files.
 The following commands are also available in the makefile (and will be shown with a generic `make`):
 
-```
+```bash
 Available rules:
 
 clean               Remove old versions of compiled html, pdf, latex
@@ -105,4 +111,3 @@ revision            Compile revised draft and texdiff with original
 scripts             Run any necessary scripts
 tex                 Compile the current draft into latex
 ```
-
