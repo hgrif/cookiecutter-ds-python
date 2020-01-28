@@ -1,5 +1,6 @@
 <h1 align="center"><span style="color:SlateBlue">man</span><span style="color:DarkRed">down</span></h1>
 
+![Travis (.org)](https://img.shields.io/travis/knaaptime/mandown)
 [![DOI](https://zenodo.org/badge/219844156.svg)](https://zenodo.org/badge/latestdoi/219844156)
 
 <p align="center">

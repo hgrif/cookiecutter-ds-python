@@ -84,6 +84,7 @@ def no_curlies(filepath):
 
 
 def test_paper(default_baked_project):
-    make_process = os.system(f" cd {default_baked_project}; make paper")
+    """Test whether the paper gets compiled."""
+    os.system(f" cd {default_baked_project}; make paper")
     paper_path = os.path.join(default_baked_project, "paper/draft.pdf")
     assert os.path.exists(paper_path)
