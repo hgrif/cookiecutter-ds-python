@@ -52,7 +52,7 @@ Demo files for all necessary documents are part of the template
     ├── notebooks/               <- Jupyter notebooks.
     │
     ├── paper
-    │   ├── .pandoc/             <- LaTeX templates and Fonts. Ignore this directory unless you need to install fonts
+    │   ├── .pandoc/             <- LaTeX templates and fonts. Ignore this directory unless you need to install fonts
     │   ├── appendix.md          <- Appendix for extra tables and figs if necessary.
     │   ├── draft.md             <- Draft of manuscript.
     │   ├── references.bib       <- References.
