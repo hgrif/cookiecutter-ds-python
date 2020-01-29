@@ -17,13 +17,12 @@ The project is is inspired by the
 [minimal cookiecutter data science](https://github.com/hgrif/cookiecutter-ds-python) project template
 and Kieran Healy’s [custom latex styles](https://github.com/kjhealy/latex-custom-kjh). I've
 updated Kieran’s styles for newer versions of pandoc and tweaked them to use open fonts (which are [included](https://github.com/knaaptime/cookiecutter-academic-python/tree/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/paper/.pandoc/fonts)
-in case they need to be installed). The build chain uses xelatex and your system fonts so there's no trouble fighting the latex stack.
+in case they need to be installed). The manuscript is compiled with [tectonic](https://tectonic-typesetting.github.io/en-US/) so you don't even need a full LaTeX distribution installed.
 
 ### Requirements to use the cookiecutter template
 
 - [Anaconda or miniconda](https://www.anaconda.com/distribution/)
 - [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
-- a LaTeX distribution like [TexLive](https://www.tug.org/texlive/)
 
 Everything else is self-contained. If you need the cookiecutter package, run
 
@@ -52,21 +51,20 @@ Demo files for all necessary documents are part of the template
     ├── notebooks/               <- Jupyter notebooks.
     │
     ├── paper
-    │   ├── .pandoc/             <- LaTeX templates and fonts. Ignore this directory unless you need to install fonts
+    │   ├── .pandoc/             <- LaTeX templates and fonts.
     │   ├── appendix.md          <- Appendix for extra tables and figs if necessary.
     │   ├── draft.md             <- Draft of manuscript.
     │   ├── references.bib       <- References.
     │   ├── review_response.md   <- Response to article reviewers
-    │   └── revision.md          <- Revised manuscript for resubmission, if necessary.
-    │                               `make revision` will build the revised draft and run latexdiff between draft.md and revision.md
+    │   └── revision.md          <- Revised manuscript for resubmission if necessary.
     │
-    ├── tables/                  <- Tables output by scripts or notebooks stored as markdown or latex files
+    ├── tables/                  <- Tables output by scripts or notebooks.
     │
-    ├── {{ cookiecutter.python_module_name }}/      <- Python module with source code for the project.
+    ├── your_python_module/      <- Python module with source code for the project.
     │
     ├── environment.yml          <- conda virtual environment definition file.
     │
-    ├── LICENSE
+    ├── LICENSE                  <- License of your choosing.
     │
     ├── Makefile                 <- Makefile with commands like `make environment`
     │
@@ -85,7 +83,7 @@ which will do the following:
 
 - create a new conda environment (that you named at the prompt)
 - activate the environment
-- install pandoc and a few other utilities necessary to build the paper
+- install pandoc (and useful extensions like [pandoc-crossref](https://lierdakil.github.io/pandoc-crossref/) and [pandoc-include](https://github.com/DCsunset/pandoc-include)) and a few other utilities necessary to build the paper
 - install an empty python module (named after your project) in development mode. With this setup, you can add new code to the python module and it's immediately available from a notebook with  `from your_project_name import *`
 
 To build the paper, edit the `draft.md` and `references.bib` files as appropriate, then use
@@ -97,22 +95,21 @@ make paper
 to build pdf, html, and latex files.
 The following commands are also available in the makefile (and will be shown with a generic `make`):
 
-```bash
+```text
 Available rules:
 
 clean               Remove old versions of compiled html, pdf, latex
 environment         Set up python interpreter environment
 environment-update  Update the environment in case of changes to dependencies
 git                 Initialize a git repository
-html                Compile the current draft into html
-kernel              If you get an error running make notebooks, this will install the kernel manually; must
-                    be run from inside the conda environment
+html                Compile the manuscript into html
+kernel              Install the notebook kernel manually
 notebooks           Run notebooks
-paper               Compile the current draft into latex, html, and pdf
-pdf                 Compile the current draft into pdf
-revision            Compile revised draft and texdiff with original
+paper               Compile the manuscript into latex, html, and pdf
+pdf                 Compile the manuscript into pdf
+revision            Compile revised manuscript and texdiff with original
 scripts             Run any necessary scripts
-tex                 Compile the current draft into latex
+tex                 Compile the manuscript into latex
 ```
 
 ## Citation
