@@ -33,8 +33,7 @@ environment:
 environment-update:
 	conda env update --name $(PROJECT_NAME) --file environment.yml
 
-## If you get an error running make notebooks, this will install the kernel manually; 
-## must be run from inside the conda environment
+## Install the notebook kernel manually (must be run from inside the conda environment)
 kernel:
 	python -m ipykernel install --name $(PROJECT_NAME) --user
 
@@ -60,14 +59,12 @@ tex:	$(TEX)
 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart --self-contained -w html --resource-path=.:$(PWD) --template=paper/.pandoc/html.template --css=paper/.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o $@ $<
 
 %.tex:	%.md
-	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=xelatex --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o $@ $<
+	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o $@ $<
 
 
 %.pdf:	%.md
 	pandoc paper/appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/appendix.tex
-	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=xelatex --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  --include-after-body paper/appendix.tex -o $@ $<
-	rm -rf paper/draft.aux paper/draft.fdb_latexmk paper/draft.fls paper/draft.log  paper/draft.bcf paper/draft.out paper/draft.run.xml paper/appendix.tex
-
+	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  --include-after-body paper/appendix.tex -o $@ $<
 
 ## Remove old versions of compiled html, pdf, latex 
 clean:
@@ -84,9 +81,7 @@ scripts:
 ## Compile revised draft and texdiff with original
 revision: $(REVPDFS) $(REVHTML) $(REVTEX) paper
 	latexdiff paper/draft.tex paper/revision.tex > paper/diff.tex
-	xelatex -output-directory=paper/ paper/diff
-	xelatex -output-directory=paper/ paper/diff
-	rm -f paper/*.aux paper/*.bcf paper/*.log paper/*.out paper/*.run.xml paper/*.bbl *paper/*.blg 
+	pandoc paper/diff.tex -s --pdf-engine=tectonic -o paper/diff.pdf
 	pandoc paper/review_response.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o paper/review_response.pdf
 
 

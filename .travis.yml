@@ -24,8 +24,6 @@ before_install:
     conda env create --name TEST python=$PY --file environment.yml
     source activate TEST
     conda info --all
-    sudo apt-get update -qq
-    sudo apt-get install -y texlive-full
     mkdir -p ~/.fonts/
     cp -rf \{\{\ cookiecutter.repo_name\ \}\}/paper/.pandoc/fonts/* ~/.fonts/
 
