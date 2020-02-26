@@ -80,8 +80,8 @@ scripts:
 
 ## Compile revised draft and texdiff with original
 revision: $(REVPDFS) $(REVHTML) $(REVTEX) paper
-	latexdiff paper/draft.tex paper/revision.tex > paper/diff.tex
-	pandoc paper/diff.tex -s --pdf-engine=tectonic -o paper/diff.pdf
+	latexdiff paper/draft.tex paper/revision.tex > diff.tex
+	tectonic diff.tex; mv diff.tex paper/diff.tex; mv diff.pdf paper/diff.pdf; rm diff.bcf
 	pandoc paper/review_response.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o paper/review_response.pdf
 
 
