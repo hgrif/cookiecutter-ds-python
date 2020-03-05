@@ -1,4 +1,5 @@
 .PHONY: create_environment git
+SHELL=/bin/bash
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -26,7 +27,7 @@ REVTEX=$(REVSRC:.md=.tex)
 
 ## Set up python interpreter environment
 environment:
-	conda env create -f environment.yml; source activate $(PROJECT_NAME); python setup.py develop
+	conda env create -f environment.yml; source $(CONDA_PREFIX)/bin/activate $(PROJECT_NAME); python setup.py develop
 
 
 ## Update the environment in case of changes to dependencies
