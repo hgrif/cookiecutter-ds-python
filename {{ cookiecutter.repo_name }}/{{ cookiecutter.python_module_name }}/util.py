@@ -6,7 +6,7 @@ import pandas as pd
 from tabulate import tabulate
 
 
-def save_table(df, path, type="pipe", landscape=False, caption=None, ref=None):
+def save_table(df, path=None, type="pipe", landscape=False, caption=None, ref=None):
     """Save a pandas dataframe as a markdown table.
 
     Parameters
@@ -31,18 +31,21 @@ def save_table(df, path, type="pipe", landscape=False, caption=None, ref=None):
 
     if landscape:
         print("\\begin{landscape}\n")
-
-    print(
-        "\\begin{table}[h]\n"
-        "\\begin{center}" + tabulate(df, tablefmt=type, headers="keys") + "\n"
-    )
-
+    if type == "latex":
+        print(
+            "\\begin{table}[h]\n"
+            "\\begin{center}" + tabulate(df, tablefmt=type, headers="keys") + "\n"
+        )
+    else: 
+        print(tabulate(df, tablefmt=type, headers="keys"))
+        
     if caption and type == "latex":
-        print("\n\\caption{caption}\n")
+        print("\n\\caption{"+f"{caption}"+"}" +"\n" + "\label{tbl:"+f"{ref}"+"}"
+)
     elif caption:
-        print(f"\n: {caption}" + "{#tbl:" + f"{ref}" + "}")
-
-    print("\\end{center}\n" "\\end{table}\n")
+        print(f"\n: {caption}" + " {#tbl:" + f"{ref}" + "}")
+    if type=='latex':
+        print("\\end{center}\n" "\\end{table}\n")
 
     if landscape:
         print("\\end{landscape}")
