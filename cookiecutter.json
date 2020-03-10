@@ -10,7 +10,6 @@
     "_copy_without_render": [
         "*.bib",
         "*paper",
-        "rendered_dir/not_rendered_file.ini",
-        "{{ cookiecutter.repo_name }}/util.py"
+        "*util.py"
     ]
 }
