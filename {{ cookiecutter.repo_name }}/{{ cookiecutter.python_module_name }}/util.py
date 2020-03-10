@@ -6,7 +6,7 @@ import pandas as pd
 from tabulate import tabulate
 
 
-def save_table(df, path, type="latex", landscape=True, caption=None, ref=None):
+def save_table(df, path, type="pipe", landscape=False, caption=None, ref=None):
     """Save a pandas dataframe as a markdown table.
 
     Parameters
@@ -17,6 +17,9 @@ def save_table(df, path, type="latex", landscape=True, caption=None, ref=None):
         path to output file
     type : str {'latex', 'pipe'}
         the type of table to output. Can by "pipe" for a markdown table, or "latex" for latex
+    landscape: bool
+        whether to print the table on its own page in landscape orientation
+        (useful for wide tables)
     caption : str
         the table's caption
     ref : str
