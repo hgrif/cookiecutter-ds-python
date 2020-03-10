@@ -6,7 +6,8 @@ dependencies:
   - python={{cookiecutter.python_version}}
   - jupyter                         # necessary to run notebooks
   - jupyterlab                      # necessary to run notebooks
-  - pandas >=1.0                    # generate markdown tables 
+  - pandas >=1.0                    # generate markdown tables
+  - tabulate                        # generate markdown tables
   - pandoc >=2.7                    # necessary to compile the paper
   - pandoc-crossref                 # necessary to compile the paper
   - tectonic                        # necessary to compile the paper
