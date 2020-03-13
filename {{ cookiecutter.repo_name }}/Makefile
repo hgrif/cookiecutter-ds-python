@@ -12,22 +12,13 @@ PYTHON_VERSION = {{ cookiecutter.python_version }}
 SRC = paper/draft.md
 REVSRC = paper/revision.md
 
-PDFS=$(SRC:.md=.pdf)
-HTML=$(SRC:.md=.html)
-TEX=$(SRC:.md=.tex)
-
-REVPDFS=$(REVSRC:.md=.pdf)
-REVHTML=$(REVSRC:.md=.html)
-REVTEX=$(REVSRC:.md=.tex)
-
-
 #################################################################################
 # COMMANDS                                                                      #
 #################################################################################
 
 ## Set up python interpreter environment
 environment:
-	conda env create -f environment.yml; source $(CONDA_PREFIX)/bin/activate $(PROJECT_NAME); python setup.py develop
+	conda env create -f environment.yml; source activate $(PROJECT_NAME); python setup.py develop
 
 
 ## Update the environment in case of changes to dependencies
@@ -44,32 +35,22 @@ git:
 	git init
 
 ## Compile the current draft into latex, html, and pdf
-paper:	clean $(HTML) $(TEX) $(PDFS) 
-
-## Compile the current draft into pdf
-pdf:	$(PDFS)
-
-## Compile the current draft into html
-html:	$(HTML)
-
-## Compile the current draft into latex
-tex:	$(TEX)
-
+paper:	clean html tex pdf
 	
-%.html:	%.md
-	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart --self-contained -w html --resource-path=.:$(PWD) --template=paper/.pandoc/html.template --css=paper/.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o $@ $<
+html:
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart --self-contained -w html --resource-path=.:$(PWD) --template=paper/.pandoc/html.template --css=paper/.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME).html
 
-%.tex:	%.md
-	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o $@ $<
+tex:
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME).tex
 
 
-%.pdf:	%.md
-	pandoc paper/appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/appendix.tex
-	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  --include-after-body paper/appendix.tex -o $@ $<
+pdf:
+	pandoc paper/appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/appendix.tex
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  --include-after-body paper/compiled/appendix.tex -o paper/compiled/$(PROJECT_NAME).pdf
 
 ## Remove old versions of compiled html, pdf, latex 
 clean:
-	rm -f paper/*.html paper/*.pdf paper/*.tex
+	rm -f paper/compiled/*.html paper/compiled/*.pdf paper/compiled/*.tex
 
 ## Run notebooks
 notebooks:
@@ -80,10 +61,15 @@ scripts:
 	# python example.py 
 
 ## Compile revised draft and texdiff with original
-revision: $(REVPDFS) $(REVHTML) $(REVTEX) paper
-	latexdiff paper/draft.tex paper/revision.tex > diff.tex
-	tectonic diff.tex; mv diff.tex paper/diff.tex; mv diff.pdf paper/diff.pdf; rm diff.bcf
-	pandoc paper/review_response.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o paper/review_response.pdf
+revision: paper
+	pandoc $(REVSRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart --self-contained -w html --resource-path=.:$(PWD) --template=paper/.pandoc/html.template --css=paper/.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME)_revision.html
+	pandoc $(REVSRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME)_revision.tex
+	pandoc paper/appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/appendix.tex
+	pandoc $(REVSRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  --include-after-body paper/compiled/appendix.tex -o paper/compiled/$(PROJECT_NAME)_revision.pdf
+
+	latexdiff paper/compiled/$(PROJECT_NAME).tex paper/compiled/$(PROJECT_NAME)_revision.tex > $(PROJECT_NAME)_diff.tex
+	tectonic $(PROJECT_NAME)_diff.tex; mv $(PROJECT_NAME)_diff.tex paper/compiled/$(PROJECT_NAME)_diff.tex; mv $(PROJECT_NAME)_diff.pdf paper/compiled/diff.pdf; rm diff.bcf
+	pandoc paper/review_response.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o paper/compiled/review_response.pdf
 
 
 
