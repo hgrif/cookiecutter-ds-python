@@ -10,7 +10,7 @@ CONDA_ENVIRONMENT = {{ cookiecutter.conda_environment }}
 PYTHON_VERSION = {{ cookiecutter.python_version }}
 
 SRC = paper/draft.md
-REVSRC = paper/revision.md
+LASTDRAFT = submitted
 
 #################################################################################
 # COMMANDS                                                                      #
@@ -34,41 +34,49 @@ kernel:
 git:
 	git init
 
+
 ## Compile the current draft into latex, html, and pdf
 paper:	clean html tex pdf
-	
+
+
+## Compile the current draft into html
 html:
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart --self-contained -w html --resource-path=.:$(PWD) --template=paper/.pandoc/html.template --katex --css=paper/.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME).html
 
+
+## Compile the current draft into tex,
 tex:
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME).tex
 
 
+## Compile the current draft into pdf
 pdf:
 	pandoc paper/appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/appendix.tex
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  --include-after-body paper/compiled/appendix.tex -o paper/compiled/$(PROJECT_NAME).pdf
+
 
 ## Remove old versions of compiled html, pdf, latex 
 clean:
 	rm -f paper/compiled/*.html paper/compiled/*.pdf paper/compiled/*.tex
 
+
 ## Run notebooks
 notebooks:
 	jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=python3 notebooks/*.ipynb;
+
 
 ## Run any necessary scripts
 scripts:
 	# python example.py 
 
-## Compile revised draft and texdiff with original
-revision: paper
-	pandoc $(REVSRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart --self-contained -w html --resource-path=.:$(PWD) --template=paper/.pandoc/html.template --css=paper/.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME)_revision.html
-	pandoc $(REVSRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME)_revision.tex
-	pandoc paper/appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/appendix.tex
-	pandoc $(REVSRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  --include-after-body paper/compiled/appendix.tex -o paper/compiled/$(PROJECT_NAME)_revision.pdf
 
-	latexdiff paper/compiled/$(PROJECT_NAME).tex paper/compiled/$(PROJECT_NAME)_revision.tex > $(PROJECT_NAME)_diff.tex
-	tectonic $(PROJECT_NAME)_diff.tex; mv $(PROJECT_NAME)_diff.tex paper/compiled/$(PROJECT_NAME)_diff.tex; mv $(PROJECT_NAME)_diff.pdf paper/compiled/diff.pdf; rm diff.bcf
+## Compile revised draft and texdiff with original
+revision: paper response
+
+
+response:
+	latexdiff paper/$(LASTDRAFT)/$(PROJECT_NAME).tex paper/compiled/$(PROJECT_NAME).tex > $(PROJECT_NAME)_diff.tex
+	tectonic $(PROJECT_NAME)_diff.tex; mv $(PROJECT_NAME)_diff.tex  paper/compiled/diff.pdf; rm diff.bcf
 	pandoc paper/review_response.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o paper/compiled/review_response.pdf
 
 
