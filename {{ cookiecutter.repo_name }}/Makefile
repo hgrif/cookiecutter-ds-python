@@ -18,8 +18,8 @@ LASTDRAFT = submitted
 
 ## Set up python interpreter environment
 environment:
-	conda env create -f environment.yml; source $(CONDA_PREFIX)/bin/activate $(PROJECT_NAME); python setup.py develop
-
+	conda env create -f environment.yml
+	source $(CONDA_PREFIX)/bin/activate $(PROJECT_NAME); python setup.py develop
 
 ## Update the environment in case of changes to dependencies
 environment-update:
@@ -29,46 +29,37 @@ environment-update:
 kernel:
 	python -m ipykernel install --name $(PROJECT_NAME) --user
 
-
 ## Initialize a git repository
 git:
 	git init
 
-
-## Compile the current draft into latex, html, and pdf
+## Compile the current draft into pdf, html, and latex
 paper:	clean html tex pdf
-
 
 ## Compile the current draft into html
 html:
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart --self-contained -w html --resource-path=.:$(PWD) --template=paper/.pandoc/html.template --katex --css=paper/.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME).html
 
-
 ## Compile the current draft into tex,
 tex:
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME).tex
-
 
 ## Compile the current draft into pdf
 pdf:
 	pandoc paper/appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/appendix.tex
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  --include-after-body paper/compiled/appendix.tex -o paper/compiled/$(PROJECT_NAME).pdf
 
-
-## Remove old versions of compiled html, pdf, latex 
+## Remove old versions of compiled draft
 clean:
 	rm -f paper/compiled/*.html paper/compiled/*.pdf paper/compiled/*.tex
-
 
 ## Run notebooks
 notebooks:
 	jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=python3 notebooks/*.ipynb;
 
-
 ## Run any necessary scripts
 scripts:
 	# python example.py 
-
 
 ## Run latex diff on the current and previous drafts
 diff:
@@ -78,18 +69,21 @@ diff:
 	mv $(PROJECT_NAME)_diff.pdf  paper/compiled/$(PROJECT_NAME)_diff.pdf
 	rm $(PROJECT_NAME)_diff.bcf
 
-
 ## Compile the draft and texdiff with previous draft
 revision: paper diff
 
-
-# Compile a response to the journal editor. Template in .pandoc dir
+# Build a point-by-point response to article reviewers (template in .pandoc/)
 response:
 	pandoc paper/review_response.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o paper/compiled/review_response.pdf
 
+submission: paper
+	@echo "Enter submission version number (e.g. 1,2,3): "; \
+	read VERSIONNO; \
+	git add .
+	git commit -m "Version $$(VERSIONNO) for submission"
+	git tag -a v$$(VERSIONNO) -m "Version $$(VERSIONNO) for submission"
+	cp paper/compiled/ paper/submitted/
 
-
-####################################################
 
 #################################################################################
 # Self Documenting Commands                                                     #

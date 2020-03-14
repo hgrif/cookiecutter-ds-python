@@ -16,6 +16,8 @@ abstract: >-
     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 bibliography: paper/references.bib
 crossrefYaml: paper/.pandoc/crossref_opts.yaml
+nocite: |
+  @Knaap2019
 ---
 
 # Introduction

@@ -97,18 +97,19 @@ The following commands are also available in the makefile (and will be shown wit
 ```text
 Available rules:
 
-clean               Remove old versions of compiled html, pdf, latex
+clean               Remove old versions of compiled draft
+diff                Run latex diff on the current and previous drafts
 environment         Set up python interpreter environment
 environment-update  Update the environment in case of changes to dependencies
 git                 Initialize a git repository
-html                Compile the manuscript into html
-kernel              Install the notebook kernel manually
+html                Compile the current draft into html
+kernel              Install the notebook kernel manually (must be run from inside the conda environment)
 notebooks           Run notebooks
-paper               Compile the manuscript into latex, html, and pdf
-pdf                 Compile the manuscript into pdf
-revision            Compile revised manuscript and texdiff with original
+paper               Compile the current draft into pdf, html, and latex
+pdf                 Compile the current draft into pdf
+revision            Compile the draft and texdiff with previous draft
 scripts             Run any necessary scripts
-tex                 Compile the manuscript into latex
+tex                 Compile the current draft into tex
 ```
 
 ## Citation
