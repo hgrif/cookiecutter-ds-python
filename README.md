@@ -9,7 +9,7 @@
 
 ## Reproducible Research and Scholarly *Man*uscripts in Mark*down*
 
-This [cookiecutter](https://github.com/cookiecutter/cookiecutter) template provides a minimal project structure for doing code-centric reproducible research and drafting an academic paper in markdown (and responding to reviewers, of course). It is configured with a set of latex templates and open fonts for compiling beautiful documents from markdown and Python (or R) source files. Consider it a pythonic take on [plain text social science](http://plain-text.co/) and data science.
+This [cookiecutter](https://github.com/cookiecutter/cookiecutter) template provides a minimal project structure for doing code-centric reproducible research and drafting an academic paper in markdown (and responding to reviewers, of course). It's configured with templates and open fonts for building beautiful documents from markdown source files. Consider it a pythonic take on [plain text social science](http://plain-text.co/) and data science.
 
 Just code in Python (or R), write prose in markdown, then `make paper` to compile into a beautiful document that looks [like this](https://knaaptime.com/papers/pdfs/gentrification_markov.pdf?pdf=machine). Pandoc and all other dependencies are pre-configured in a conda [environment file](https://github.com/knaaptime/mandown/blob/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/environment.yml) so that each manuscript is self-contained and can be built from scratch using simple commands from the [Makefile](https://github.com/knaaptime/mandown/blob/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/Makefile)
 
@@ -50,13 +50,12 @@ Demo files for all necessary documents are part of the template
     │
     ├── notebooks/               <- Jupyter notebooks.
     │
-    ├── paper
+    ├── paper/
     │   ├── .pandoc/             <- LaTeX templates and fonts.
+    │   ├── compiled/            <- Compiled output.
     │   ├── appendix.md          <- Appendix for extra tables and figs if necessary.
     │   ├── draft.md             <- Draft of manuscript.
-    │   ├── references.bib       <- References.
-    │   ├── review_response.md   <- Response to article reviewers
-    │   └── revision.md          <- Revised manuscript for resubmission if necessary.
+    │   └── references.bib       <- References.
     │
     ├── tables/                  <- Tables output by scripts or notebooks.
     │
