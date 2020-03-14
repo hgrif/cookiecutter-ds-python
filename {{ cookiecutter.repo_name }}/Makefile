@@ -70,13 +70,21 @@ scripts:
 	# python example.py 
 
 
-## Compile revised draft and texdiff with original
-revision: paper response
-
-
-response:
+## Run latex diff on the current and previous drafts
+diff:
 	latexdiff paper/$(LASTDRAFT)/$(PROJECT_NAME).tex paper/compiled/$(PROJECT_NAME).tex > $(PROJECT_NAME)_diff.tex
-	tectonic $(PROJECT_NAME)_diff.tex; mv $(PROJECT_NAME)_diff.tex  paper/compiled/diff.pdf; rm diff.bcf
+	tectonic $(PROJECT_NAME)_diff.tex
+	mv $(PROJECT_NAME)_diff.tex  paper/compiled/$(PROJECT_NAME)_diff.tex
+	mv $(PROJECT_NAME)_diff.pdf  paper/compiled/$(PROJECT_NAME)_diff.pdf
+	rm $(PROJECT_NAME)_diff.bcf
+
+
+## Compile the draft and texdiff with previous draft
+revision: paper diff
+
+
+# Compile a response to the journal editor. Template in .pandoc dir
+response:
 	pandoc paper/review_response.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o paper/compiled/review_response.pdf
 
 
