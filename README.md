@@ -1,6 +1,6 @@
-<h1 align="center"><span style="color:SlateBlue">man</span><span style="color:DarkRed">down</span></h1>
+<h1 align="center"><span style="color: SlateBlue">man</span><span style="color: DarkRed">down</span></h1>
 
-![Travis (.org)](https://img.shields.io/travis/knaaptime/mandown)
+[![Build Status](https://travis-ci.com/knaaptime/mandown.svg?branch=master)](https://travis-ci.com/knaaptime/mandown)
 [![DOI](https://zenodo.org/badge/219844156.svg)](https://zenodo.org/badge/latestdoi/219844156)
 
 <p align="center">
@@ -21,8 +21,8 @@ in case they need to be installed). The manuscript is compiled with [tectonic](h
 
 ### Requirements to use the cookiecutter template
 
-- [Anaconda or miniconda](https://www.anaconda.com/distribution/)
-- [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
+* [Anaconda or miniconda](https://www.anaconda.com/distribution/)
+* [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
 
 Everything else is self-contained. If you need the cookiecutter package, run
 
@@ -32,17 +32,85 @@ conda install -c conda-forge cookiecutter
 
 ### To start a new manuscript
 
-```bash
+``` bash
 cookiecutter gh:knaaptime/mandown
 ```
 
 and answer the questions at the prompt
 
+## Building a Manuscript
+
+To start working on the manuscript, `cd` into the new project directory and run
+
+``` bash
+make environment
+```
+
+which will do the following:
+
+* create a new conda environment (that you named at the prompt)
+* activate the environment
+* install pandoc (and useful extensions like [pandoc-crossref](https://lierdakil.github.io/pandoc-crossref/) and [pandoc-include](https://github.com/DCsunset/pandoc-include)) and a few other utilities necessary to build the paper into the environment
+* install an empty python module (named after your project) in development mode. With this setup,
+  you can add new code to the python module and it's immediately available from a notebook with
+  `from your_project_name import *`
+
+To build the paper, edit the `draft.md` and `references.bib` files as appropriate, then use
+
+``` bash
+make paper
+```
+
+to build pdf, html, and latex files.
+
+## Preparing for Submission
+
+When you're ready to finalize a draft and submit it for publication, run 
+
+``` bash
+make submission
+```
+
+Which will:
+
+* build the current draft
+* commit all files in the repository and create a new release tag
+* copy the `compiled` directory to a new directory called `submitted`
+
+## Revising a Draft
+
+In the (ever so unlikely) event that the first draft is not accepted on the first submission, you'll
+need to revise the draft and respond to reviewers. After you've made edits to the draft, and you're
+preparing for resubmission, you can run
+
+``` bash
+make revision
+```
+
+Which will build the current draft and run [texdiff](https://ctan.org/pkg/texdiff?lang=en) on the
+two versions so it's easy to see the changes. 
+
+When you're ready to create a new submission, you can run 
+
+``` bash
+make resubmission
+```
+
+Which will:
+
+- build the current draft
+- create a new release tag
+- diff with the prior version
+- compile a reponse to the reviweers
+
+In this case, the recipe expects a file called `review_response.md` in the `paper` directory. There's a template available in the `.pandoc` directory that uses pandoc admonitions to  differentiate reviewer critiques from author responses. If you'd like, copy that file into the `paper` directory and edit accordingly, otherwise create your own response.
+
+
 ## Project Organization
 
 Demo files for all necessary documents are part of the template
 
-```text
+``` text
     │
     ├── data/                    <- The original, immutable data dump.
     │
@@ -65,52 +133,39 @@ Demo files for all necessary documents are part of the template
     │
     ├── LICENSE                  <- License of your choosing.
     │
-    ├── Makefile                 <- Makefile with commands like `make environment`
+    ├── Makefile                 <- Makefile with commands like `make environment` 
     │
     └── README.md                <- The top-level README for collaborators using this project.
 ```
 
-## Building a Manuscript
+## Makefile commands
 
-To start working on the manuscript, `cd` into the new project directory and run
+To see all available commands, just run
 
-```bash
-make environment
+``` bash
+make
 ```
 
-which will do the following:
+Which will show the following commands:
 
-- create a new conda environment (that you named at the prompt)
-- activate the environment
-- install pandoc (and useful extensions like [pandoc-crossref](https://lierdakil.github.io/pandoc-crossref/) and [pandoc-include](https://github.com/DCsunset/pandoc-include)) and a few other utilities necessary to build the paper
-- install an empty python module (named after your project) in development mode. With this setup, you can add new code to the python module and it's immediately available from a notebook with  `from your_project_name import *`
-
-To build the paper, edit the `draft.md` and `references.bib` files as appropriate, then use
-
-```bash
-make paper
-```
-
-to build pdf, html, and latex files.
-The following commands are also available in the makefile (and will be shown with a generic `make`):
-
-```text
+``` text
 Available rules:
 
-clean               Remove old versions of compiled draft
-diff                Run latex diff on the current and previous drafts
-environment         Set up python interpreter environment
-environment-update  Update the environment in case of changes to dependencies
-git                 Initialize a git repository
-html                Compile the current draft into html
-kernel              Install the notebook kernel manually (must run inside the conda environment)
-notebooks           Run notebooks
-paper               Compile the current draft into pdf, html, and latex
-pdf                 Compile the current draft into pdf
-response            Build a point-by-point response to article reviewers (template in .pandoc/)
-revision            Compile the draft and texdiff with previous draft
-scripts             Run any necessary scripts
-submission          Build the draft and tag the version as submitted
+clean               Remove old versions of compiled draft 
+diff                Run latex diff on the current and previous drafts 
+environment         Set up python interpreter environment 
+environment-update  Update the environment in case of changes to dependencies 
+git                 Initialize a git repository 
+html                Compile the current draft into html 
+kernel              Install the notebook kernel manually (must run inside the conda environment) 
+notebooks           Run notebooks 
+paper               Compile the current draft into pdf, html, and latex 
+pdf                 Compile the current draft into pdf 
+response            Build point-by-point response to reviewers (template in .pandoc/) 
+resubmission        Create new submission, diff with prior, & respond to reviewers 
+revision            Compile the draft and texdiff with previous draft 
+scripts             Run any necessary scripts 
+submission          Build the draft and tag the version as submitted 
 tex                 Compile the current draft into tex
 ```
 
@@ -118,7 +173,7 @@ tex                 Compile the current draft into tex
 
 If you'd like to cite this repository, I recommend:
 
-```latex
+``` latex
 @software{Knaap2020,
 author = {Knaap, Elijah},
 doi = {10.5281/zenodo.3629662},
@@ -128,3 +183,4 @@ url = {https://zenodo.org/record/3629662},
 year = {2020}
 }
 ```
+
