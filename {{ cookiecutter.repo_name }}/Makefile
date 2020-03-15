@@ -72,17 +72,19 @@ diff:
 ## Compile the draft and texdiff with previous draft
 revision: paper diff
 
-# Build a point-by-point response to article reviewers (template in .pandoc/)
+## Build a point-by-point response to article reviewers (template in .pandoc/)
 response:
 	pandoc paper/review_response.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o paper/compiled/review_response.pdf
 
-submission: paper
-	@echo "Enter submission version number (e.g. 1,2,3): "; \
-	read VERSIONNO; \
-	git add .
-	git commit -m "Version $$(VERSIONNO) for submission"
-	git tag -a v$$(VERSIONNO) -m "Version $$(VERSIONNO) for submission"
-	cp paper/compiled/ paper/submitted/
+## Build the draft and tag the version as submitted
+submission: 
+	@echo "Enter submission version number (e.g. v1, v2, v3): "; \
+	read -r VNO; \
+	make paper; \
+	git add . ; \
+	git commit -m "Version $$VNO for submission"; \
+	git tag -a $$VNO -m "Version $$VNO for submission"
+	cp -r paper/compiled/ paper/submitted/
 
 
 #################################################################################
