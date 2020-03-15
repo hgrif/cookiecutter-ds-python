@@ -103,12 +103,14 @@ environment         Set up python interpreter environment
 environment-update  Update the environment in case of changes to dependencies
 git                 Initialize a git repository
 html                Compile the current draft into html
-kernel              Install the notebook kernel manually (must be run from inside the conda environment)
+kernel              Install the notebook kernel manually (must run inside the conda environment)
 notebooks           Run notebooks
 paper               Compile the current draft into pdf, html, and latex
 pdf                 Compile the current draft into pdf
+response            Build a point-by-point response to article reviewers (template in .pandoc/)
 revision            Compile the draft and texdiff with previous draft
 scripts             Run any necessary scripts
+submission          Build the draft and tag the version as submitted
 tex                 Compile the current draft into tex
 ```
 

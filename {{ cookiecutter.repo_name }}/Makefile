@@ -25,7 +25,7 @@ environment:
 environment-update:
 	conda env update --name $(PROJECT_NAME) --file environment.yml
 
-## Install the notebook kernel manually (must be run from inside the conda environment)
+## Install the notebook kernel manually (must run inside the conda environment)
 kernel:
 	python -m ipykernel install --name $(PROJECT_NAME) --user
 
@@ -72,7 +72,7 @@ diff:
 ## Compile the draft and texdiff with previous draft
 revision: paper diff
 
-## Build a point-by-point response to article reviewers (template in .pandoc/)
+## Build point-by-point response to reviewers (template in .pandoc/)
 response:
 	pandoc paper/review_response.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o paper/compiled/review_response.pdf
 
