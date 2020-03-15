@@ -86,6 +86,8 @@ submission:
 	git tag -a $$VNO -m "Version $$VNO for submission"
 	cp -r paper/compiled/ paper/submitted/
 
+## Create new submission, diff with prior, & respond to reviewers
+resubmission: submission diff response
 
 #################################################################################
 # Self Documenting Commands                                                     #
