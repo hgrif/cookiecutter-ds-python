@@ -6,7 +6,7 @@ import pandas as pd
 from tabulate import tabulate
 
 
-def save_table(df, path=None, type="pipe", landscape=False, caption=None, ref=None):
+def save_table(df, path=None, type="pipe", landscape=False, caption=None, ref=None, tabulate_kws=None):
     """Save a pandas dataframe as a markdown table.
 
     Parameters
@@ -24,17 +24,22 @@ def save_table(df, path=None, type="pipe", landscape=False, caption=None, ref=No
         the table's caption
     ref : str
         short name used to reference the table with pandoc-crossref
+    tabulate_kws : dict
+        additional keyword arguments passed to tabulate
 
     """
     original = sys.stdout
     sys.stdout = open(path, "w")
+    if not tabulate_kws:
+        tabulate_kws = {}
+
 
     if landscape:
         print("\\begin{landscape}\n")
     if type == "latex":
         print(
             "\\begin{table}[h]\n"
-            "\\begin{center}" + tabulate(df, tablefmt=type, headers="keys") + "\n"
+            "\\begin{center}" + tabulate(df, tablefmt=type, headers="keys", **tabulate_kws) + "\n"
         )
     else: 
         print(tabulate(df, tablefmt=type, headers="keys"))
