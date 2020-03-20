@@ -25,7 +25,7 @@ environment:
 environment-update:
 	conda env update --name $(PROJECT_NAME) --file environment.yml
 
-## Install the notebook kernel manually (must run inside the conda environment)
+## Install notebook kernel manually (must run in active environment)
 kernel:
 	python -m ipykernel install --name $(PROJECT_NAME) --user
 
@@ -33,18 +33,18 @@ kernel:
 git:
 	git init
 
-## Compile the current draft into pdf, html, and latex
+## Build pdf, html, & latex from current draft
 paper:	clean html tex pdf
 
-## Compile the current draft into html
+## Build html file from current draft
 html:
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart --self-contained -w html --resource-path=.:$(PWD) --template=paper/.pandoc/html.template --katex --css=paper/.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME).html
 
-## Compile the current draft into tex,
+## Build latex doc from the current draft
 tex:
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME).tex
 
-## Compile the current draft into pdf
+## Build pdf from current draft
 pdf:
 	pandoc paper/appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/appendix.tex
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  --include-after-body paper/compiled/appendix.tex -o paper/compiled/$(PROJECT_NAME).pdf
@@ -55,13 +55,13 @@ clean:
 
 ## Run notebooks
 notebooks:
-	jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=python3 notebooks/*.ipynb;
+	jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=$(PROJECT_NAME) notebooks/*.ipynb;
 
 ## Run any necessary scripts
 scripts:
 	# python example.py 
 
-## Run latex diff on the current and previous drafts
+## Run latex diff on current and previous drafts
 diff:
 	latexdiff paper/$(LASTDRAFT)/$(PROJECT_NAME).tex paper/compiled/$(PROJECT_NAME).tex > $(PROJECT_NAME)_diff.tex
 	tectonic $(PROJECT_NAME)_diff.tex
@@ -69,14 +69,14 @@ diff:
 	mv $(PROJECT_NAME)_diff.pdf  paper/compiled/$(PROJECT_NAME)_diff.pdf
 	rm $(PROJECT_NAME)_diff.bcf
 
-## Compile the draft and texdiff with previous draft
+## Build paper and texdiff with previous draft
 revision: paper diff
 
-## Build point-by-point response to reviewers (template in .pandoc/)
+## Build point-by-point pdf responding to reviewers (template in .pandoc/)
 response:
 	pandoc paper/review_response.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o paper/compiled/review_response.pdf
 
-## Build the draft and tag the version as submitted
+## Build paper and tag as submitted version
 submission: 
 	@echo "Enter submission version number (e.g. v1, v2, v3): "; \
 	read -r VNO; \

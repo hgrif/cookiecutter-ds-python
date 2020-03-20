@@ -10,4 +10,7 @@ lstPrefix:
 tblPrefix:
  - "Table"
  - "Tables"
+eqnPrefix:
+ - "Equation"
+ - "Equations"
 tableTemplate: "*$$tableTitle$$ $$i$$*$$titleDelim$$ $$t$$"
