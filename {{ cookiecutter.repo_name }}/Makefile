@@ -1,4 +1,4 @@
-.PHONY: create_environment git
+.PHONY: environment git
 SHELL=/bin/bash
 
 #################################################################################
