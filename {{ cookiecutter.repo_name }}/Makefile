@@ -120,7 +120,7 @@ resubmission: submission diff response
 # 	* print line
 # Separate expressions are necessary because labels cannot be delimited by
 # semicolon; see <http://stackoverflow.com/a/11799865/1968>
-.PHONY: show-help
+.PHONY: show-help notebooks clean
 show-help:
 	@echo "$$(tput bold)Available rules:$$(tput sgr0)"
 	@echo

@@ -40,7 +40,7 @@ environment         Set up python interpreter environment
 environment-update  Update the environment in case of changes to dependencies
 git                 Initialize a git repository
 html                Build an html file from the current draft
-kernel              Install notebook kernel manually (must run in active environment)
+kernel              Install notebook kernel manually
 notebooks           Run notebooks
 paper               Build pdf, html, and latex from the current draft
 pdf                 Build pdf from the current draft
