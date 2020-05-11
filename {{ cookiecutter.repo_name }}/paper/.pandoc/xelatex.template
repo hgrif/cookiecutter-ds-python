@@ -2,6 +2,7 @@
 \usepackage{paper/.pandoc/org-preamble-xelatex}
 \usepackage{lscape}
 \usepackage{flafter}
+\usepackage{amsmath}
 
 $if(listings)$
 \usepackage{listings}
