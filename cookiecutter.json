@@ -1,4 +1,5 @@
 {
+    "document_template": ["paper", "proposal"],
     "project_name": "project_name",
     "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
     "python_module_name": "{{ cookiecutter.repo_name }}",
@@ -9,7 +10,7 @@
     "python_version": "Python interpreter (e.g. 3, 3.5, 2.7)",
     "_copy_without_render": [
         "*.bib",
-        "*paper",
+        "*paper/.pandoc",
         "*util.py"
     ]
 }

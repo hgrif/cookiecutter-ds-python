@@ -11,7 +11,7 @@ PROJECT_NAME = {{ cookiecutter.repo_name }}
 CONDA_ENVIRONMENT = {{ cookiecutter.conda_environment }}
 PYTHON_VERSION = {{ cookiecutter.python_version }}
 
-SRC = paper/draft.md
+SRC = draft.md
 LASTDRAFT = submitted
 
 #################################################################################
@@ -21,15 +21,15 @@ LASTDRAFT = submitted
 ## Set up python interpreter environment
 environment:
 	conda env create -f environment.yml
-	source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME); python setup.py develop -N
+	source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT); python setup.py develop -N
 
 ## Update the environment in case of changes to dependencies
 environment-update:
-	conda env update --name $(PROJECT_NAME) --file environment.yml
+	conda env update --name $(CONDA_ENVIRONMENT) --file environment.yml
 
 ## Install notebook kernel manually
 kernel:
-	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME);\
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
 	python -m ipykernel install --name $(PROJECT_NAME) --user
 
 ## Initialize a git repository
@@ -41,19 +41,22 @@ paper: clean html tex pdf
 
 ## Build html file from current draft
 html:
-	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME);\
-	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart --self-contained -w html --resource-path=.:$(PWD) --template=paper/.pandoc/html.template --katex --css=paper/.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME).html;
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
+	cd paper;\
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart --self-contained -w html --resource-path=.:$(PWD) --template=.pandoc/html.template --katex --css=.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --citeproc -o compiled/$(PROJECT_NAME).html;
 
 ## Build latex doc from the current draft
 tex:
-	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME);\
-	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/$(PROJECT_NAME).tex;
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
+	cd paper;\
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=tectonic --template=.pandoc/{{ cookiecutter.document_template }}.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --natbib -o compiled/$(PROJECT_NAME).tex;
 
 ## Build pdf from current draft
 pdf:
-	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME);\
-	pandoc paper/appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc -o paper/compiled/appendix.tex;\
-	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic --template=paper/.pandoc/xelatex.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  --include-after-body paper/compiled/appendix.tex -o paper/compiled/$(PROJECT_NAME).pdf;
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
+	cd paper;\
+	pandoc appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --citeproc -o compiled/appendix.tex;\
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic --template=.pandoc/{{ cookiecutter.document_template }}.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --citeproc  --include-after-body compiled/appendix.tex -o compiled/$(PROJECT_NAME).pdf;
 
 ## Remove old versions of compiled draft
 clean:
@@ -61,21 +64,22 @@ clean:
 
 ## Run notebooks
 notebooks:
-	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME);\
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
 	jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=$(PROJECT_NAME) notebooks/*.ipynb;
 
 ## Run any necessary scripts
 scripts:
-	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME);
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);
 	# python example.py
 
 ## Run latex diff on current and previous drafts
 diff:
-	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME);\
-	latexdiff paper/$(LASTDRAFT)/$(PROJECT_NAME).tex paper/compiled/$(PROJECT_NAME).tex > $(PROJECT_NAME)_diff.tex; \
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
+	cd paper; \
+	latexdiff $(LASTDRAFT)/$(PROJECT_NAME).tex compiled/$(PROJECT_NAME).tex > $(PROJECT_NAME)_diff.tex; \
 	tectonic $(PROJECT_NAME)_diff.tex
-	mv $(PROJECT_NAME)_diff.tex  paper/compiled/$(PROJECT_NAME)_diff.tex
-	mv $(PROJECT_NAME)_diff.pdf  paper/compiled/$(PROJECT_NAME)_diff.pdf
+	mv $(PROJECT_NAME)_diff.tex  compiled/$(PROJECT_NAME)_diff.tex
+	mv $(PROJECT_NAME)_diff.pdf  compiled/$(PROJECT_NAME)_diff.pdf
 	rm $(PROJECT_NAME)_diff.bcf
 
 ## Build paper and texdiff with previous draft
@@ -83,20 +87,21 @@ revision: paper diff
 
 ## Build cover letter
 cover:
-	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME);\
-	pandoc paper/cover.md --pdf-engine=tectonic --template=paper/.pandoc/template-letter.tex --data-dir=.:paper/.pandoc -o paper/compiled/cover.pdf
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
+	cd paper;\
+	pandoc cover.md --pdf-engine=tectonic --template=.pandoc/template-letter.tex --data-dir=.:.pandoc -o compiled/cover.pdf
 
 ## Build point-by-point pdf responding to reviewers (template in .pandoc/)
 response:
-	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME);\
-	pandoc paper/review_response.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --filter pandoc-citeproc  -o paper/compiled/review_response.pdf
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
+	cd paper;\
+	pandoc review_response.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --citeproc  -o compiled/review_response.pdf
 
 ## Build paper and tag as submitted version
 submission:
-	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME); \ 
-	@echo "Enter submission version number (e.g. v1, v2, v3): "; \ 
+	@echo "Enter submission version number (e.g. v1, v2, v3): "; \
 	read -r VNO; \
-	make paper; \
+	make paper && \
 	git add . ; \
 	git commit -m "Version $$VNO for submission"; \
 	git tag -a $$VNO -m "Version $$VNO for submission"

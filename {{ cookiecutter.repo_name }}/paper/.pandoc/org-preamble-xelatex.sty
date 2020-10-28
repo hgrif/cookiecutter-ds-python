@@ -1,4 +1,4 @@
-%% Preamble/settings for documents exported from .org files to .tex files when the 
+%% Preamble/settings for documents exported from .org files to .tex files when the
 %% tex engine is xelatex.
 %%
 %% Usage: \usepackage{org-preamble-xelatex} in your document
@@ -11,7 +11,7 @@
 
 %% Kieran Healy
 %%
- 
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{org-preamble-xelatex}[2011/02/21 v0.01 Bundling of Preamble items for Org to XeLaTeX export]
 
@@ -31,7 +31,7 @@
 \RequirePackage{xunicode}
 \RequirePackage{url}
 \RequirePackage{rotating}
-\RequirePackage{paper/.pandoc/memoir-article-styles}
+\RequirePackage{.pandoc/memoir-article-styles}
 \RequirePackage[american]{babel}
 \RequirePackage[babel]{csquotes}
 \RequirePackage[svgnames]{xcolor}
@@ -73,9 +73,9 @@ pdfpagelabels, bookmarksnumbered]{hyperref}
 %% If [minted] option is chosen, activate minted
 \ifthenelse{\boolean{@minted}}{
   \RequirePackage{minted}
-  \usemintedstyle{tango} 
+  \usemintedstyle{tango}
   \definecolor{bg}{rgb}{0.95,0.95,0.95}
-  \setkeys{Gin}{width=1\@textwidth} 
+  \setkeys{Gin}{width=1\@textwidth}
 }{}
 
 \endinput
