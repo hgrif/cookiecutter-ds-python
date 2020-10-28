@@ -30,7 +30,7 @@ environment-update:
 ## Install notebook kernel manually
 kernel:
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
-	python -m ipykernel install --name $(PROJECT_NAME) --user
+	python -m ipykernel install --name $(CONDA_ENVIRONMENT) --user
 
 ## Initialize a git repository
 git:
@@ -65,7 +65,7 @@ clean:
 ## Run notebooks
 notebooks:
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
-	jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=$(PROJECT_NAME) notebooks/*.ipynb;
+	jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=$(CONDA_ENVIRONMENT) notebooks/*.ipynb;
 
 ## Run any necessary scripts
 scripts:
