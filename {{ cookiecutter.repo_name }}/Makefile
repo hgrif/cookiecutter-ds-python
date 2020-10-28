@@ -104,8 +104,9 @@ submission:
 	make paper && \
 	git add . ; \
 	git commit -m "Version $$VNO for submission"; \
-	git tag -a $$VNO -m "Version $$VNO for submission"
-	cp -r paper/compiled/ paper/submitted/
+	git tag -a $$VNO -m "Version $$VNO for submission"; \
+	cp -r paper/compiled/ paper/submitted/ ; \
+	conda env export --name $(CONDA_ENVIRONMENT) > paper/submitted/$(PROJECT_NAME)_env.yml
 
 ## Create new submission, diff with prior, & respond to reviewers
 resubmission: submission diff response
