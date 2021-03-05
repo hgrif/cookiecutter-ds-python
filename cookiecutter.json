@@ -1,5 +1,5 @@
 {
-    "document_template": ["paper", "proposal"],
+    "document_template": ["simple_article", "fancy_article", "proposal"],
     "project_name": "project_name",
     "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
     "python_module_name": "{{ cookiecutter.repo_name }}",
