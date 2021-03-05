@@ -71,9 +71,23 @@ $-- \author{$for(author)$$author.name$ ($author.affiliation$)$sep$ \and $endfor$
 
 \begin{document}
 \setkeys{Gin}{width=1\textwidth}
-\setromanfont[Mapping=tex-text]{Spectral}
-\setsansfont[Mapping=tex-text]{Roboto}
-\setmonofont[Mapping=tex-text,Scale=0.8]{Oxygen Mono}
+
+% Set roman back to Spectral for serifs
+\setromanfont[Path = .pandoc/fonts/,
+             Extension = .ttf,
+             UprightFont       = *-Regular ,
+             BoldFont          = *-Bold ,
+             ItalicFont        = *-Italic ,
+             BoldItalicFont    = *-BoldItalic ,
+             Ligatures=TeX]{Spectral}
+\setsansfont[Path = .pandoc/fonts/,
+             Extension = .ttf,
+             UprightFont       = *-Regular ,
+             BoldFont          = *-Bold ,
+             ItalicFont        = *-Italic ,
+             BoldItalicFont    = *-BoldItalic ,
+             Ligatures=TeX]{Barlow}
+\setmonofont[Path = .pandoc/fonts/,Scale=0.8]{OxygenMono-Regular.ttf}
 \chapterstyle{article-4}
 \pagestyle{kjh}
 

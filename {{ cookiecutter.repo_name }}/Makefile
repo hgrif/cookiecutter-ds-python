@@ -32,9 +32,15 @@ kernel:
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
 	python -m ipykernel install --name $(CONDA_ENVIRONMENT) --user
 
-## Initialize a git repository
+## Initialize a private git repository
 git:
-	git init
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
+	git init ;\
+	gh auth login ;\
+	gh repo create $(PROJECT_NAME) --private
+	git add .
+	git commit -m 'init'
+	git push --set-upstream origin main
 
 ## Build pdf, html, & latex from current draft
 paper: clean html tex pdf
