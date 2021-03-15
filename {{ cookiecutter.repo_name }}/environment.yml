@@ -9,8 +9,8 @@ dependencies:
   - pandas >=1.0                    # generate markdown tables
   - tabulate                        # generate markdown tables
   - pandoc >=2.7                    # necessary to compile the paper
-  - pandoc-crossref                 # necessary to compile the paper
-  - tectonic =0.1.14                # necessary to compile the paper
+  - pandoc-crossref >=0.3.10        # necessary to compile the paper
+  - tectonic                        # necessary to compile the paper
   - watermark                       # add metadata to notebooks
   - seaborn                         # requirement of stargazer and we want from conda not pip
   - gh

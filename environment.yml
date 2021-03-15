@@ -6,7 +6,7 @@ dependencies:
   - jupyterlab
   - tabulate
   - pandoc >=2.11
-  - pandoc-crossref
+  - pandoc-crossref >=0.3.10
   - pytest
   - cookiecutter
   - watermark
