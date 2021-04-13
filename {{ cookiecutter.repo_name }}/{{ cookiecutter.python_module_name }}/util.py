@@ -12,7 +12,7 @@ def save_table(
     type="pipe",
     landscape=False,
     caption=None,
-    ref=None, 
+    ref=None,
     resize=True,
     tabulate_kws=None,
 ):
@@ -47,7 +47,7 @@ def save_table(
     if landscape:
         print("\\begin{landscape}\n")
 
-    if type == "latex":
+    if "latex" or "booktabs" in type:
         print("\\begin{table}[h]\n")
         print("\\begin{center}")
         if resize:
@@ -58,17 +58,32 @@ def save_table(
 
     else:
         print(tabulate(df, tablefmt=type, headers="keys"))
-    if caption and type == "latex":
+    if caption and "latex" or "booktabs" in type:
         print(
             "\n\\caption{" + f"{caption}" + "}" + "\n" + "\\label{tbl:" + f"{ref}" + "}"
         )
     elif caption:
         print(f"\n: {caption}" + " {#tbl:" + f"{ref}" + "}")
 
-    if type == "latex":
+    if "latex" or "booktabs" in type:
         print("\\end{center}\n" "\\end{table}\n")
 
     if landscape:
         print("\\end{landscape}")
 
     sys.stdout = original
+
+
+def break_string(string, length):
+    prestr = "\makecell*[{{p{%s}}}]{" % length
+    return prestr + string + "}"
+
+
+def resize_table_cols(df, length):
+    df = df.copy()
+    strcols = df.columns[df.columns.dtype=="O"].tolist()[0]
+    if isinstance(length, str):
+        length = {col: length for col in strcols}
+    for i in length:
+        df[i] = df[i].apply(lambda x: break_string(x, length[i]))
+    return df
