@@ -9,7 +9,7 @@ from tabulate import tabulate
 def save_table(
     df,
     path=None,
-    type="pipe",
+    type="latex",
     landscape=False,
     caption=None,
     ref=None,

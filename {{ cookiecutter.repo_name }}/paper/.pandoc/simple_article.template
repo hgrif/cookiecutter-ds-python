@@ -123,7 +123,7 @@ $endif$
              BoldFont          = *-Bold ,
              ItalicFont        = *-Italic ,
              BoldItalicFont    = *-BoldItalic ,
-             Ligatures=TeX]{Spectral}
+             Ligatures=TeX]{IBMPlexSerif}
 \setsansfont[Path = .pandoc/fonts/,
              Extension = .ttf,
              UprightFont       = *-Regular ,
@@ -134,6 +134,8 @@ $endif$
              Ligatures=TeX]{Barlow}
 \setmonofont[Path = .pandoc/fonts/,
              Scale=0.8]{OxygenMono-Regular.ttf}
+
+\setmathfont[Path = .pandoc/fonts/]{KpMath-Regular.otf}
 
 
 $if(mathfont)$

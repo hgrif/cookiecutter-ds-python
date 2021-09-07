@@ -21,9 +21,9 @@ crossrefYaml: .pandoc/crossref_opts.yaml
 csl: .pandoc/csl/apa-custom.csl  # apa without name disambiguation
 # these do not work for fancy_article
 sansitup: True
-linestretch: 1.25
+linestretch: 1.4 # for fancy_article use 1.25
 geometry: margin=1in
-fontsize: 11pt
+fontsize: 10pt # for fancy_article use 11
 thanks: "This work is supported by NSF Grant XXXXXX"
 anonymous: False
 ---
