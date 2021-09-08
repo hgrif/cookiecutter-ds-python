@@ -1,5 +1,4 @@
 {
-    "document_template": ["simple_article", "fancy_article", "proposal"],
     "project_name": "project_name",
     "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
     "python_module_name": "{{ cookiecutter.repo_name }}",
@@ -8,6 +7,7 @@
     "open_source_license": [ "MIT", "BSD", "Not open source" ],
     "conda_environment": "{{ cookiecutter.repo_name }}",
     "python_version": "Python interpreter (e.g. 3, 3.5, 2.7)",
+    "document_template": ["simple_article", "fancy_article", "proposal"],
     "_copy_without_render": [
         "*.bib",
         "*paper/.pandoc",

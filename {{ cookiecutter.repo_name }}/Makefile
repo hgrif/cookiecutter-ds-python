@@ -39,7 +39,7 @@ git:
 	gh auth login ;\
 	gh repo create $(PROJECT_NAME) --private
 	git add .
-	git commit -m 'init'
+	git commit -m 'init from mandown'
 	git push --set-upstream origin main
 
 ## Build pdf, html, & latex from current draft
@@ -77,6 +77,12 @@ notebooks:
 scripts:
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);
 	# python example.py
+
+## Generate draft word count
+wordcount:
+	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME);\
+	cd paper;\
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic --template=.pandoc/simple_article.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition  --citeproc  --lua-filter .pandoc/wordcount.lua -o none.pdf;  
 
 ## Run latex diff on current and previous drafts
 diff:
