@@ -20,12 +20,12 @@ LASTDRAFT = submitted
 
 ## Set up python interpreter environment
 environment:
-	conda env create -f environment.yml
+	mamba env create -f environment.yml
 	source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT); python setup.py develop -N
 
 ## Update the environment in case of changes to dependencies
 environment-update:
-	conda env update --name $(CONDA_ENVIRONMENT) --file environment.yml
+	mamba env update --name $(CONDA_ENVIRONMENT) --file environment.yml
 
 ## Install notebook kernel manually
 kernel:
