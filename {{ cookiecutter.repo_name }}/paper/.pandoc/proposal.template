@@ -35,22 +35,6 @@ $endfor$
 \DeclareCaptionLabelFormat{nonumber}{#1}
 %\definecolor{MyBlue}{rgb}{0.0,0.0,1.0}
 
-%%% macros to get fancy headers and footers on pages
-%\usepackage{fancyhdr}
-%\fancyfoot{}
-%\fancyhead[R]{\bfseries\thepage}
-%\fancyhead[L]{\textsc{Building Spatial Uncertainty into Statistical Data Analysis}}
-%\renewcommand{\headrulewidth}{0.5pt}
-%\renewcommand{\footrulewidth}{0pt}
-%\addtolength{\headheight}{13.6pt}
-%\addtolength{\headsep}{1em}
-%\fancypagestyle{plain}{%
-%  \fancyhead{}
-%  \renewcommand{\headrulewidth}{0pt}
-%}
-%\addtolength{\textheight}{-0.5em}
-%\pagestyle{fancy}
-%%%% End macros for fancy headers
 
 \newtheorem{problem}{Problem}[section]
 
@@ -74,12 +58,9 @@ $endfor$
 \end{center}
 }
 
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[$for(microtypeoptions)$$microtypeoptions$$sep$,$endfor$]{microtype}
+\usepackage{upquote}{}
+\usepackage[$for(microtypeoptions)$$microtypeoptions$$sep$,$endfor$]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
 $if(indent)$
 $else$
 \makeatletter
@@ -265,7 +246,7 @@ $if(csl-refs)$
 \setlength{\cslhangindent}{1.5em}
 \newlength{\csllabelwidth}
 \setlength{\csllabelwidth}{3em}
-\newenvironment{CSLReferences}[3] % #1 hanging-ident, #2 entry spacing
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
  {% don't indent paragraphs
   \setlength{\parindent}{0pt}
   % turn on hanging indent if param 1 is 1
