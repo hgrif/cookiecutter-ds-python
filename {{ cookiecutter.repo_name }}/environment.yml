@@ -14,8 +14,10 @@ dependencies:
   - watermark                       # add metadata to notebooks
   - seaborn                         # requirement of stargazer and we want from conda not pip
   - gh
+  # add additional conda reqs here
   - pip
   - pip:
     - pandoc-include                 # necessary to compile the paper
     - pandoc-latex-admonition        # necessary to compile the paper
     - stargazer
+    - -e .                           # install project as editable python module

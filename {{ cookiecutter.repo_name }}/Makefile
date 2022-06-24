@@ -21,7 +21,6 @@ LASTDRAFT = submitted
 ## Set up python interpreter environment
 environment:
 	mamba env create -f environment.yml
-	source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT); python setup.py develop -N
 
 ## Update the environment in case of changes to dependencies
 environment-update:
