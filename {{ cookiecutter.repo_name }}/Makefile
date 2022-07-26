@@ -22,9 +22,20 @@ LASTDRAFT = submitted
 environment:
 	mamba env create -f environment.yml
 
-## Update the environment in case of changes to dependencies
-environment-update:
-	mamba env update --name $(CONDA_ENVIRONMENT) --file environment.yml
+## Freeze the environment (fix each installed version) to ensure reproducibility
+environment-freeze:
+	mamba lock -f environment.yml -p osx-64 -p osx-arm64 -p linux-64 -p win-64
+
+
+docker-image: environment-freeze 
+	mv conda-lock.yml ; \
+	docker/conda-lock.yml ; \ 
+	cd docker; \
+	docker build --quiet --tag $(PROJECT_NAME) .
+
+docker-run:
+	docker run -p 8888:8000 
+	 -it --rm $(PROJECT_NAME) 
 
 ## Install notebook kernel manually
 kernel:

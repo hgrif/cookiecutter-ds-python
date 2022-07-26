@@ -1,0 +1,7 @@
+FROM condaforge/mambaforge:latest
+RUN mamba install --name base --yes conda-lock --channel conda-forge
+COPY --chown=$MAMBA_USER:$MAMBA_USER conda-lock.yml /tmp/conda-lock.yml
+RUN mamba lock install /tmp/conda-lock.yml --name cogs && \
+    mamba clean --all --yes
+ARG MAMBA_DOCKERFILE_ACTIVATE=cogs  # (otherwise python will not be found)
+RUN python -c 'import uuid; print(uuid.uuid4())' > /tmp/my_uuid

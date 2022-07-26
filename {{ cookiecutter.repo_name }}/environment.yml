@@ -14,6 +14,7 @@ dependencies:
   - watermark                       # add metadata to notebooks
   - seaborn                         # requirement of stargazer and we want from conda not pip
   - gh
+  - conda-lock
   # add additional conda reqs here
   - pip
   - pip:
