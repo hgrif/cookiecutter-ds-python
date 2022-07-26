@@ -56,7 +56,7 @@ def test_setup(default_baked_project):
 
 
 def test_folders(default_baked_project):
-    expected_dirs = ["data", "figures", "notebooks", "paper", "tables", "project_name"]
+    expected_dirs = ["data", "notebooks", "paper", "docs", "docker", "project_name"]
 
     ignored_dirs = [
         default_baked_project,

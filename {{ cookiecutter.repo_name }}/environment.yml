@@ -13,12 +13,13 @@ dependencies:
   - tectonic                        # necessary to compile the paper
   - watermark                       # add metadata to notebooks
   - seaborn                         # requirement of stargazer and we want from conda not pip
-  - gh
-  - conda-lock
+  - gh                              # interact with github CLI
+  - conda-lock                      # allow freezing of environments for docker builds
+  - make                            # ensure makefile commands are available
   # add additional conda reqs here
   - pip
   - pip:
     - pandoc-include                 # necessary to compile the paper
     - pandoc-latex-admonition        # necessary to compile the paper
-    - stargazer
+    - stargazer                      # good-looking regression tables
     - -e .                           # install project as editable python module
