@@ -6,7 +6,7 @@ On a fresh machine:
 
 1. clone this repository, then cd into it
 2. run `make environment` to build the conda environment with necessary dependencies
-   - run `conda activate getis_empcenter` each time you work on the project
+   - run `conda activate {{ cookiecutter.conda_environment }}` each time you work on the project
    - run `make environment-update` to rebuild the conda environment if you add new dependencies or they change upstream
 
 

@@ -111,18 +111,18 @@ Demo files for all necessary documents are part of the template
 
 ``` text
     │
-    ├── data/                    <- The original, immutable data dump.
+    ├── data/                    <- Datasets.
     │
     ├── notebooks/               <- Jupyter notebooks.
     │
     ├── paper/
-    │   ├── .pandoc/             <- LaTeX templates and fonts.
+    │   ├── .pandoc/             <- LaTeX templates, fonts, & configs.
     │   ├── compiled/            <- Compiled output.
     │   ├── figures/             <- Figures/images output by scripts or notebooks.
     │   ├── tables/              <- Tables output by scripts or notebooks.
-    │   ├── appendix.md          <- Appendix for extra tables and figs if necessary.
-    │   ├── draft.md             <- Draft of manuscript.
-    │   └── references.bib       <- References.
+    │   ├── appendix.md          <- Appendix for extra tables and figs if necessary.
+    │   ├── draft.md             <- Draft of manuscript.
+    │   └── references.bib       <- References.
     │
     ├── your_python_module/      <- Python module with source code for the project.
     │
@@ -149,21 +149,26 @@ Which will show the following commands:
 Available rules:
 
 clean               Remove old versions of compiled draft 
-diff                Run latex diff on the current and previous drafts 
+cover               Build cover letter 
+diff                Run latex diff on current and previous drafts 
+docker-image        Build a static docker image from a conda-lock file
+docker-run          Start the docker image 
 environment         Set up python interpreter environment 
+environment-freeze  Freeze the environment to a conda-lock file
 environment-update  Update the environment in case of changes to dependencies 
-git                 Initialize a git repository 
-html                Compile the current draft into html 
-kernel              Install the notebook kernel manually (must run inside the conda environment) 
+git                 Initialize a private git repository 
+html                Build html file from current draft 
+kernel              Install notebook kernel manually 
 notebooks           Run notebooks 
-paper               Compile the current draft into pdf, html, and latex 
-pdf                 Compile the current draft into pdf 
-response            Build point-by-point response to reviewers (template in .pandoc/) 
-resubmission        Create new submission, diff with prior, & respond to reviewers 
-revision            Compile the draft and texdiff with previous draft 
+paper               Build pdf, html, & latex from current draft 
+pdf                 Build pdf from current draft 
+response            Build point-by-point pdf responding to reviewers
+resubmission        Create submission, diff with prior, & respond to reviewers 
+revision            Build paper and texdiff with previous draft 
 scripts             Run any necessary scripts 
-submission          Build the draft and tag the version as submitted 
-tex                 Compile the current draft into tex
+submission          Build paper and tag as submitted version 
+tex                 Build latex doc from the current draft 
+wordcount           Estimate draft word count 
 ```
 
 ## Citation

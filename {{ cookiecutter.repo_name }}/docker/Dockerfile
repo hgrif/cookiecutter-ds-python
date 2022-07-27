@@ -1,4 +1,6 @@
-FROM condaforge/mambaforge:latest
+# forcing a linux/amd64 build ensures you can create on apple silicon
+# the `--platform=linux/amd64` section could theoretically be removed later
+FROM --platform=linux/amd64 condaforge/mambaforge:latest
 RUN mamba install --name base --yes conda-lock --channel conda-forge
 COPY --chown=$MAMBA_USER:$MAMBA_USER conda-lock.yml /tmp/conda-lock.yml
 RUN mamba lock install /tmp/conda-lock.yml --name {{ cookiecutter.conda_environment }} && \

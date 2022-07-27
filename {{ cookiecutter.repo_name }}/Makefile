@@ -22,21 +22,28 @@ LASTDRAFT = submitted
 environment:
 	mamba env create -f environment.yml
 
+## Update the environment in case of changes to dependencies
+environment-update:
+	mamba env update --name $(CONDA_ENVIRONMENT) --file environment.yml;
+
 ## Freeze the environment (fix each installed version) to ensure reproducibility
 ## The docker container needs linux, but other recipes can be output as well with:
 ## -p osx-64 -p osx-arm64 -p win-64;
 environment-freeze:
-	mamba lock -f environment.yml -p linux-64  \
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
+	mamba lock -f environment.yml -p linux-64; \
 	mv conda-lock.yml docker/conda-lock.yml
 
-## Create a static docker image from a working environment (especially helpful for R&R)
+## Create a static docker image from a conda-lock file
 docker-image: 
 	cd docker; \
 	docker build --quiet --tag $(PROJECT_NAME) .
 
 ## Run the docker image
 docker-run:
-	docker run -p 8888:8888 --e NB_GID=1001 -v ${PWD}:/home/jovyan/work -it --rm $(PROJECT_NAME) 
+	docker run -p 8888:8888 --user root -e NB_GID=1001 -e NB_UID=1000 \
+	-v ${PWD}:/home/jovyan/work \
+	-it --rm $(PROJECT_NAME) 
 
 ## Install notebook kernel manually
 kernel:
@@ -89,7 +96,7 @@ scripts:
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);
 	# python example.py
 
-## Generate draft word count
+## Estimate draft word count
 wordcount:
 	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME);\
 	cd paper;\
