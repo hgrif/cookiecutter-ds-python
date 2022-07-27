@@ -2,15 +2,16 @@
 
 All of the heavy lifting is accomplished with makefile commands. 
 
-See other documents in this directory for additional instructions
+**See other documents in this directory for additional instructions**
+
+- [Setup instructions](installation_instructions.md)
+- [Writing instructions](drafting_instructions.md))
 
 ## Create a local environment
 
-**The conda environment contains _all_ necessary dependencies**
-
 1. clone this repository
 2. run `make environment` to build the conda environment with necessary dependencies
-   - run `conda activate getis_empcenter` each time you work on the project
+   - run `conda activate {{ cookiecutter.conda_environment }}` each time you work on the project
    - run `make environment-update` to rebuild the conda environment if you add new dependencies or they change upstream
 
 ## Use

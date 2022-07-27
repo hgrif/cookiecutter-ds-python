@@ -18,6 +18,8 @@ The project is is inspired by the
 and Kieran Healy’s [custom latex styles](https://github.com/kjhealy/latex-custom-kjh). I've
 updated Kieran’s styles for newer versions of pandoc and tweaked them to use open fonts. The manuscript is compiled with [tectonic](https://tectonic-typesetting.github.io/en-US/) so you don't even need a full LaTeX distribution installed.
 
+**See more detailed information on setup and use in the [docs folder]({{%20cookiecutter.repo_name%20}}/docs/infrastructure/README.md)**
+
 ### Requirements to use the template
 
 * [Anaconda or miniconda](https://www.anaconda.com/distribution/)
