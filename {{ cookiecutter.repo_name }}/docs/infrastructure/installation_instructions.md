@@ -1,18 +1,36 @@
-# Build Instructions
+# Install Instructions
 
-Practice good habits with conda environments. 
-
-_The **full** dependency stack to compile the paper is contained within the conda environment for this project (`getis_empcenter`)_
-
+Practice good habits with conda environments. **The conda environment contains _all_ necessary dependencies**
 
 On a fresh machine:
 
-- clone the respository with git, then cd into it
-- use `make environment` to build a local environment called "getis_empcenters"
-  - if you hit environment solve errors on apple silicon it's probably because of `pandoc-crossref`. In that case, remove `pandoc-crossref` from the conda deps and add it below as a pip requirement (or use the docker solution)
-- use `make pdf` or `make paper` to compile the paper (the latter creates latex, html, and docx, as well as pdf)
+1. clone this repository, then cd into it
+2. run `make environment` to build the conda environment with necessary dependencies
+   - run `conda activate getis_empcenter` each time you work on the project
+   - run `make environment-update` to rebuild the conda environment if you add new dependencies or they change upstream
+
+
 
 ## Docker instructions
+
+In general, the conda environment should be sufficient for running the full analysis and compiling
+the paper. Practice good environment habits, and make sure you add any new dependencies to the
+`environment.yml` when they're used in the analysis. We want to avoid relying on docker containers
+because they add overhead, consume disk space, and can be clumsy to work with.
+
+**But** docker containers can be extremely useful in two cases: first, for onboarding new
+contributors who don't use conda regularly but just need access to the code, and second for freezing
+an environment in place to prevent bit rot and ensure the full stack is reproducible. The latter is
+especially useful when a paper has been sumbitted for review, in which case the code represents a
+snapshot in time. Wrapping the environment into a docker container when the paper is shipped can
+save hours or days that would otherwise be spent refactoring old code when the paper comes back for
+revision (but, if the paper would benefit from upstream changes, the docker image can be ignored, and
+the analysis can just proceed with the conda environment--the best of both worlds!)
+
+To create a docker image, you must first have a working conda environment. Generally, the lead
+author or whoever has recently pushed on the analysis will have a working environment, and the
+lock-file only needs to be generated and committed when there's been an intentional change to the
+environment. In practice, the lock-file should be regenerated (and committed) whenever there is a logical 'snapshot' of the paper (milestones, revisions, or changes to the dependencies)
 
 - to generate a local docker image use `make docker-image`
 - start the docker container with `make docker-run`

@@ -113,18 +113,16 @@ Demo files for all necessary documents are part of the template
     │
     ├── data/                    <- The original, immutable data dump.
     │
-    ├── figures/                 <- Figures output by scripts or notebooks.
-    │
     ├── notebooks/               <- Jupyter notebooks.
     │
     ├── paper/
     │   ├── .pandoc/             <- LaTeX templates and fonts.
     │   ├── compiled/            <- Compiled output.
+    │   ├── figures/             <- Figures/images output by scripts or notebooks.
+    │   ├── tables/              <- Tables output by scripts or notebooks.
     │   ├── appendix.md          <- Appendix for extra tables and figs if necessary.
     │   ├── draft.md             <- Draft of manuscript.
     │   └── references.bib       <- References.
-    │
-    ├── tables/                  <- Tables output by scripts or notebooks.
     │
     ├── your_python_module/      <- Python module with source code for the project.
     │

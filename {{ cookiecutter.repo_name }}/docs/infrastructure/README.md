@@ -2,7 +2,7 @@
 
 All of the heavy lifting is accomplished with makefile commands. See other documents in this directory for additional instructions
 
-## Create a local environment 
+## Create a local environment
 
 **The conda environment contains _all_ necessary dependencies**
 
@@ -13,8 +13,7 @@ All of the heavy lifting is accomplished with makefile commands. See other docum
 
 ## Use
 
-Makefile commands do all the heavy lifting.  
-Use `make` in the root of this directory to see all the available commands.
+Use a generic  `make` (with no arguments) in the root of this directory to see all the available commands.
 
 ### General workflow
 
@@ -29,25 +28,30 @@ The manuscript is pre-configured for use with
 - [pandoc-include](https://github.com/DCsunset/pandoc-include) for storing tables and/or sections of the draft in separate files
 - [pandoc-latex-admonitions](https://github.com/chdemko/pandoc-latex-admonition) for adding notes or calling attention to sections for coauthors. Admonitions can also be helpful for responding to particular reviewer critiques
 
-### Makefile Rules
+## Makefile Rules
 
 ``` text
 Available rules:
 
-clean               Remove old versions of compiled draft
-diff                Run latex diff on the current and previous drafts
-environment         Set up python interpreter environment
-environment-update  Update the environment in case of changes to dependencies
-git                 Initialize a git repository
-html                Build an html file from the current draft
-kernel              Install notebook kernel manually
-notebooks           Run notebooks
-paper               Build pdf, html, and latex from the current draft
-pdf                 Build pdf from the current draft
-response            Build point-by-point pdf response to reviewers (template in .pandoc/)
-resubmission        Create new submission, diff with prior, & respond to reviewers
-revision            Build paper and texdiff with previous draft
-scripts             Run any necessary scripts
-submission          Build paper and tag as submitted version
-tex                 Build a latex document from the current draft
+clean               Remove old versions of compiled draft 
+cover               Build cover letter 
+diff                Run latex diff on current and previous drafts 
+docker-image        Build a static docker image 
+docker-run          start the docker image 
+environment         Set up python interpreter environment 
+environment-freeze  Freeze the environment to a conda-lock file
+environment-update  Update the environment in case of changes to dependencies 
+git                 Initialize a private git repository 
+html                Build html file from current draft 
+kernel              Install notebook kernel manually 
+notebooks           Run notebooks 
+paper               Build pdf, html, & latex from current draft 
+pdf                 Build pdf from current draft 
+response            Build point-by-point pdf responding to reviewers
+resubmission        Create submission, diff with prior, & respond to reviewers 
+revision            Build paper and texdiff with previous draft 
+scripts             Run any necessary scripts 
+submission          Build paper and tag as submitted version 
+tex                 Build latex doc from the current draft 
+wordcount           Generate draft word count 
 ```
