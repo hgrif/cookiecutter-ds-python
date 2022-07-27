@@ -40,10 +40,14 @@ commits in the git history with the particular stack they can be run on.
 
 - if no lockfile is present in the repository, one can be created with `make environment-freeze`
 - to generate a local docker image use `make docker-image`
-- start the docker container with `make docker-run`
-- cd into `/home/jovyan/work/` (this is the project directory)
-- run `conda activate {{ cookiecutter.conda_environment }}`
+- start the docker container with `make docker-run` (this will launch you into a docker shell in the
+  project directory)
+
+[Inside the docker container], run: 
+- `conda activate {{ cookiecutter.conda_environment }}`
 - launch jupyter with `jupyter lab --allow-root --ip=*`
+  - follow the terminal prompt to access jupyter in your browser
+- all the makefile commands will function
 
 ### Notes
 

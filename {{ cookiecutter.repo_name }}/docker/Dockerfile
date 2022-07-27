@@ -7,3 +7,4 @@ RUN mamba lock install /tmp/conda-lock.yml --name {{ cookiecutter.conda_environm
     mamba clean --all --yes
 ARG MAMBA_DOCKERFILE_ACTIVATE=1  # (otherwise python will not be found)
 RUN python -c 'import uuid; print(uuid.uuid4())' > /tmp/my_uuid
+WORKDIR /{{ cookiecutter.repo_name }}

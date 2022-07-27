@@ -41,7 +41,7 @@ docker-image:
 ## Run the docker image
 docker-run:
 	docker run -p 8888:8888 --user root -e NB_GID=1001 -e NB_UID=1000 \
-	-v ${PWD}:/home/jovyan/work \
+	-v ${PWD}:/$(PROJECT_NAME) \
 	-it --rm $(PROJECT_NAME) 
 
 ## Install notebook kernel manually
