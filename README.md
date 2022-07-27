@@ -18,7 +18,7 @@ The project is is inspired by the
 and Kieran Healy’s [custom latex styles](https://github.com/kjhealy/latex-custom-kjh). I've
 updated Kieran’s styles for newer versions of pandoc and tweaked them to use open fonts. The manuscript is compiled with [tectonic](https://tectonic-typesetting.github.io/en-US/) so you don't even need a full LaTeX distribution installed.
 
-### Requirements to use the cookiecutter template
+### Requirements to use the template
 
 * [Anaconda or miniconda](https://www.anaconda.com/distribution/)
 * [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
@@ -61,48 +61,6 @@ make paper
 ```
 
 to build pdf, html, and latex files.
-
-## Preparing for Submission
-
-When you're ready to finalize a draft and submit it for publication, run 
-
-``` bash
-make submission
-```
-
-Which will:
-
-* build the current draft
-* commit all files in the repository and create a new release tag
-* copy the `compiled` directory to a new directory called `submitted`
-
-## Revising a Draft
-
-In the (ever so unlikely) event that the first draft is not accepted on the first submission, you'll
-need to revise the draft and respond to reviewers. After you've made edits to the draft, and you're
-preparing for resubmission, you can run
-
-``` bash
-make revision
-```
-
-Which will build the current draft and run [texdiff](https://ctan.org/pkg/texdiff?lang=en) on the
-two versions so it's easy to see the changes. 
-
-When you're ready to create a new submission, you can run 
-
-``` bash
-make resubmission
-```
-
-Which will:
-
-- build the current draft
-- create a new release tag
-- diff with the prior version
-- compile a reponse to the reviweers
-
-In this case, the recipe expects a file called `review_response.md` in the `paper` directory. There's a template available in the `.pandoc` directory that uses pandoc admonitions to  differentiate reviewer critiques from author responses. If you'd like, copy that file into the `paper` directory and edit accordingly, otherwise create your own response.
 
 
 ## Project Organization
@@ -185,4 +143,3 @@ url = {https://zenodo.org/record/3629662},
 year = {2020}
 }
 ```
-

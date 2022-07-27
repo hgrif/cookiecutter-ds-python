@@ -1,6 +1,8 @@
-# Set up
+# Quickstart
 
-All of the heavy lifting is accomplished with makefile commands. See other documents in this directory for additional instructions
+All of the heavy lifting is accomplished with makefile commands. 
+
+See other documents in this directory for additional instructions
 
 ## Create a local environment
 

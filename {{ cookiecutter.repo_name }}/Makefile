@@ -30,7 +30,6 @@ environment-update:
 ## The docker container needs linux, but other recipes can be output as well with:
 ## -p osx-64 -p osx-arm64 -p win-64;
 environment-freeze:
-	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
 	mamba lock -f environment.yml -p linux-64; \
 	mv conda-lock.yml docker/conda-lock.yml
 
