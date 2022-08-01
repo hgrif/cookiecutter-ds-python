@@ -7,16 +7,25 @@ All of the heavy lifting is accomplished with makefile commands.
 - [Setup instructions](installation_instructions.md)
 - [Writing instructions](drafting_instructions.md))
 
-## Create a local environment
+## Using Conda Environments (recommended)
+
+Make sure you have Anaconda installed. The [mambaforge](https://github.com/conda-forge/miniforge) version is recommended
 
 1. clone this repository
 2. run `make environment` to build the conda environment with necessary dependencies
    - run `conda activate {{ cookiecutter.conda_environment }}` each time you work on the project
    - run `make environment-update` to rebuild the conda environment if you add new dependencies or they change upstream
 
-## Use
+## Using Docker Containers (fallback)
 
-Use a generic  `make` (with no arguments) in the root of this directory to see all the available commands.
+Make sure you have docker installed
+
+See the instructions [here](infrastructure/../installation_instructions.md)
+
+## Working on the project
+
+Use a generic  `make` (with no arguments) in the root of this directory to see all the available commands. **See the instructions in [drafting docs](drafting_instructions.md) for more information.**
+
 
 ### General workflow
 
@@ -24,6 +33,7 @@ Use a generic  `make` (with no arguments) in the root of this directory to see a
 - use `make notebooks` to execute the analysis
 - use `make paper` to build the draft
 - use `make submission` when ready to submit for publication
+
 
 The manuscript is pre-configured for use with
 
