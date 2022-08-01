@@ -27,9 +27,9 @@ environment-update:
 	mamba env update --name $(CONDA_ENVIRONMENT) --file environment.yml;
 
 ## Freeze the environment (fix each installed version) to ensure reproducibility
+environment-freeze:
 ## The docker container needs linux, but other recipes can be output as well with:
 ## -p osx-64 -p osx-arm64 -p win-64;
-environment-freeze:
 	mamba lock -f environment.yml -p linux-64; \
 	mv conda-lock.yml docker/conda-lock.yml
 
@@ -40,13 +40,19 @@ docker-image:
 
 ## Run the docker image
 docker-run:
-	docker run -p 8888:8888 --user root -e NB_GID=1001 -e NB_UID=1000 \
+	docker run -p 8888:8888 --name $(PROJECT_NAME) \
+	--user root -e NB_GID=1001 -e NB_UID=1000 \
 	-v ${PWD}:/$(PROJECT_NAME) \
 	-it --rm $(PROJECT_NAME) 
 
+# Run jupyterlab (with appropriate args for docker)
+jlab:
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
+	jupyter lab --allow-root --ip=*
+
 ## Install notebook kernel manually
 kernel:
-	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT); \
 	python -m ipykernel install --name $(CONDA_ENVIRONMENT) --user
 
 ## Initialize a private git repository
@@ -66,20 +72,27 @@ paper: clean html tex pdf
 html:
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
 	cd paper;\
-	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart --self-contained -w html --resource-path=.:$(PWD) --template=.pandoc/html.template --katex --css=.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --citeproc -o compiled/$(PROJECT_NAME).html;
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart \
+	--self-contained -w html --resource-path=.:$(PWD) --template=.pandoc/html.template \
+	--katex --css=.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref \
+	--filter pandoc-latex-admonition --citeproc -o compiled/$(PROJECT_NAME).html;
 
 ## Build latex doc from the current draft
 tex:
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
 	cd paper;\
-	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --pdf-engine=tectonic --template=.pandoc/{{ cookiecutter.document_template }}.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --natbib -o compiled/$(PROJECT_NAME).tex;
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s \
+	--pdf-engine=tectonic --template=.pandoc/{{ cookiecutter.document_template }}.template --filter pandoc-include \
+	--filter pandoc-crossref --filter pandoc-latex-admonition --natbib -o compiled/$(PROJECT_NAME).tex;
 
 ## Build pdf from current draft
 pdf:
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
 	cd paper;\
-	pandoc appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --citeproc -o compiled/appendix.tex;\
-	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic --template=.pandoc/{{ cookiecutter.document_template }}.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --citeproc  --include-after-body compiled/appendix.tex -o compiled/$(PROJECT_NAME).pdf;
+	pandoc appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition --citeproc -o compiled/appendix.tex; \
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic \
+	--template=.pandoc/{{ cookiecutter.document_template }}.template --filter pandoc-include --filter pandoc-crossref \
+	--filter pandoc-latex-admonition --citeproc  --include-after-body compiled/appendix.tex -o compiled/$(PROJECT_NAME).pdf;
 
 ## Remove old versions of compiled draft
 clean:
@@ -88,7 +101,8 @@ clean:
 ## Run notebooks
 notebooks:
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
-	jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=$(CONDA_ENVIRONMENT) notebooks/*.ipynb;
+	jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 \
+	--ExecutePreprocessor.kernel_name=$(CONDA_ENVIRONMENT) notebooks/*.ipynb;
 
 ## Run any necessary scripts
 scripts:
@@ -99,7 +113,9 @@ scripts:
 wordcount:
 	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME);\
 	cd paper;\
-	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic --template=.pandoc/simple_article.template --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition  --citeproc  --lua-filter .pandoc/wordcount.lua -o none.pdf;  
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s \
+	--pdf-engine=tectonic --template=.pandoc/simple_article.template --filter pandoc-include \
+	--filter pandoc-crossref --filter pandoc-latex-admonition  --citeproc  --lua-filter .pandoc/wordcount.lua -o none.pdf;  
 
 ## Run latex diff on current and previous drafts
 diff:

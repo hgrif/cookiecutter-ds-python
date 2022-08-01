@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python={{cookiecutter.python_version}}
+  - python=={{cookiecutter.python_version}}
   - jupyter                         # necessary to run notebooks
   - jupyterlab                      # necessary to run notebooks
   - pandas >=1.0                    # generate markdown tables

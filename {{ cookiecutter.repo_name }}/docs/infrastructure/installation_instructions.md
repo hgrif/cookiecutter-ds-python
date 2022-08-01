@@ -34,7 +34,7 @@ which will generate a generic linux installation recipe from the project's curre
 file. This means the lockfile can be created on any computer, even if some parts of the stack are
 currently unavailable for your architecture. The lock-file should be regenerated and committed
 whenever there is a logical milestone in the analysis/paper (new results, revisions, or changes to
-the dependencies). That is, the lockfile can be created by any user at any time to create a docker
+the dependencies). That is, the lockfile can be created by any user at any time to generate a docker
 image, but it should only be *committed* to the repository with intention. This allows you to match
 commits in the git history with the particular stack they can be run on.
 
@@ -45,19 +45,30 @@ commits in the git history with the particular stack they can be run on.
 
 [Inside the docker container], run: 
 - `conda activate {{ cookiecutter.conda_environment }}`
-- launch jupyter with `jupyter lab --allow-root --ip=*`
+- launch jupyter with `make jlab`
   - follow the terminal prompt to access jupyter in your browser
-- all the makefile commands will function
+- all the makefile commands will function as normal
 
 ### Notes
 
 If you make changes to the environment (i.e. update dependencies) during the course of an analysis,
 be sure to recreate the conda-lock file with `make environment-freeze` to ensure the docker image
-can be rebuilt with the new specs
+can be rebuilt with the new specs.
 
 Also, most makefile commands activate the project environment because there's no consequence, and it
 ensures all the dependencies are available. But some commands (e.g. `make environment-freeze`)
 intentionally avoid activating the environment first. This pattern allows you to create a functional
 docker image using `make environment-freeze && make docker-image`, even if you can't create the
 environment for your local architecture, so long as you have basic tools like `make` and
-`conda-lock` available. (again, anything you need is available from conda-forge)
+`conda-lock` available. (again, anything you need is available from conda-forge).
+
+The dockerfile is configured specifically to create a linux/amd64 virtual machine. This is a generic
+VM that should be possible to build and run on most host systems (including apple ARM). But it can
+also force your system into emulation mode when another VM would be more efficient. If you want to
+build an image specific to your host machine, edit the makefile and the dockerfile (see comments in
+each) to create a different target build.
+
+If you are running the default docker image (linux/amd64) on apple silicon (M1/M3), then a bug in
+the `qemu` system will fail when you try to build the pdf. The analysis stack will still build fine,
+but you will need to compile the paper on the host machine (all the dependencies are available for
+ARM macs). This should be resolved before long.
