@@ -5,7 +5,7 @@ All of the heavy lifting is accomplished with makefile commands.
 **See other documents in this directory for additional instructions**
 
 - [Setup instructions](installation_instructions.md)
-- [Writing instructions](drafting_instructions.md))
+- [Writing instructions](drafting_instructions.md)
 
 ## Using Conda Environments (recommended)
 
@@ -24,13 +24,13 @@ See the instructions [here](infrastructure/../installation_instructions.md)
 
 ## Working on the project
 
-Use a generic  `make` (with no arguments) in the root of this directory to see all the available commands. **See the instructions in [drafting docs](drafting_instructions.md) for more information.**
-
+Use a generic `make` (with no arguments) in the root of this directory to see all the available commands. **See the instructions in [drafting docs](drafting_instructions.md) for more information.**
 
 ### General workflow
 
+- run `make jlab` to launch jupyter and work on the project code
+  - alternatively, use `make notebooks` to execute all notebooks in the analysis
 - edit `draft.md` and `references.bib` as necessary
-- use `make notebooks` to execute the analysis
 - use `make paper` to build the draft
 - use `make submission` when ready to submit for publication
 
