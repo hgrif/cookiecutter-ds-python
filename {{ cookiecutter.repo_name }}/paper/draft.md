@@ -67,3 +67,4 @@ ullamco laboris nisi ut aliquip ex ea commodo consequat.
 Make sure you include the final `#References` tag at the end of the document to ensure that the references section has a header
 
 # References
+\setstretch{1}

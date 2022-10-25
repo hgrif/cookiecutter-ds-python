@@ -66,7 +66,7 @@ git:
 	git push --set-upstream origin main
 
 ## Build pdf, html, & latex from current draft
-paper: clean html tex pdf
+paper: clean html tex docx pdf
 
 ## Build html file from current draft
 html:
@@ -77,7 +77,17 @@ html:
 	--katex --css=.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref \
 	--filter pandoc-latex-admonition --citeproc -o compiled/$(PROJECT_NAME).html;
 
-## Build latex doc from the current draft
+## Build docx from current draft
+docx:
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
+	cd paper;\
+	pandoc appendix.md --filter pandoc-include --filter pandoc-crossref --filter pandoc-latex-admonition \
+	--citeproc -o compiled/appendix.tex;\
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic \
+	--template=.pandoc/simple_article.template --filter pandoc-include --filter pandoc-crossref \
+	--filter pandoc-latex-admonition --citeproc  --include-after-body compiled/appendix.tex -o compiled/$(PROJECT_NAME).docx;
+
+## Build latex from the current draft
 tex:
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
 	cd paper;\
@@ -96,7 +106,7 @@ pdf:
 
 ## Remove old versions of compiled draft
 clean:
-	rm -f paper/compiled/*.html paper/compiled/*.pdf paper/compiled/*.tex;
+	rm -f paper/compiled/*.html paper/compiled/*.pdf paper/compiled/*.tex paper/compiled/*.docx;
 
 ## Run notebooks
 notebooks:
