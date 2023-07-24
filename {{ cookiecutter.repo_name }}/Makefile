@@ -93,7 +93,15 @@ tex:
 	cd paper;\
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s \
 	--pdf-engine=tectonic --template=.pandoc/{{ cookiecutter.document_template }}.template --filter pandoc-include \
-	--filter pandoc-crossref --filter pandoc-latex-admonition --natbib -o compiled/$(PROJECT_NAME).tex;
+	--filter pandoc-crossref --filter pandoc-latex-admonition --biblatex -o compiled/$(PROJECT_NAME).tex;
+
+## Build latex from the current draft without formatting 
+tex-vanilla:
+	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
+	cd paper;\
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s \
+	--pdf-engine=tectonic --filter pandoc-include \
+	--filter pandoc-crossref --filter pandoc-latex-admonition --citeproc -o compiled/$(PROJECT_NAME).tex;
 
 ## Build pdf from current draft
 pdf:
@@ -103,6 +111,14 @@ pdf:
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s --pdf-engine=tectonic \
 	--template=.pandoc/{{ cookiecutter.document_template }}.template --filter pandoc-include --filter pandoc-crossref \
 	--filter pandoc-latex-admonition --citeproc  --include-after-body compiled/appendix.tex -o compiled/$(PROJECT_NAME).pdf;
+
+extract-refs:
+	@source "$(CONDA_BASE)/bin/activate" $(PROJECT_NAME);\
+	cd paper;\
+	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -s \
+	--pdf-engine=tectonic  --filter pandoc-include \
+	--filter pandoc-crossref --citeproc  --lua-filter .pandoc/extract-bib.lua --to=biblatex -o compiled/paper.bib
+
 
 ## Remove old versions of compiled draft
 clean:

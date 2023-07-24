@@ -1,0 +1,332 @@
+% TRR_latex_guidelines.tex V1.00, 31 August 2020
+
+\documentclass[times]{TRR}
+
+\usepackage{moreverb,url}
+
+\usepackage[colorlinks,bookmarksopen,bookmarksnumbered,citecolor=red,urlcolor=red]{hyperref}
+
+\newcommand\BibTeX{{\rmfamily B\kern-.05em \textsc{i\kern-.025em b}\kern-.08em
+T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\def\volumeyear{2020}
+
+\begin{document}
+
+\runninghead{Smith and Haynes}
+
+\title{A Demonstration of the \LaTeXe\ Class File for
+\itshape{Transportation Research Record}}
+
+\author{Alistair Smith\affilnum{1} and Miranda Haynes\affilnum{2}}
+
+\affiliation{\affilnum{1}Sunrise Setting Ltd, Brixham, UK\\
+\affilnum{2}SAGE Publications Ltd, London, UK}
+
+\corrauth{Alistair Smith, alistair.smith@sunrise-setting.co.uk}
+
+\begin{abstract}
+This paper describes the use of the \LaTeXe\
+\textsf{\journalclass} class file for setting papers to be
+submitted to \textit{Transportation Research Record}.
+\end{abstract}
+
+\maketitle
+
+%\section{Introduction}
+\noindent Many authors submitting to research journals use \LaTeXe\ to
+prepare their papers. This paper describes the
+\textsf{\journalclass} class file which can be used to convert
+articles produced with other \LaTeXe\ class files into the correct
+form for submission to \textit{Transportation Research Record}.
+
+The \textsf{\journalclass} class file preserves much of the
+standard \LaTeXe\ interface so that any document which was
+produced using the standard \LaTeXe\ \textsf{article} style can
+easily be converted to work with the \textsf{\journalclassshort}
+style. However, the width of text and typesize will vary from that
+of \textsf{article.cls}; therefore, \textit{line breaks will change}
+and it is likely that displayed mathematics and tabular material
+will need re-setting.
+
+In the following sections we describe how to lay out your code to
+use \textsf{\journalclass} to reproduce much of the typographical look of
+\textit{Transportation Research Record}. However, this paper is not a guide to
+using \LaTeXe\ and we would refer you to any of the many books
+available (see, for example, \cite{R1,R2,R3}).
+
+\section{The Three Golden Rules}
+Before we proceed, we would like to stress \textit{three golden
+rules} that need to be followed to enable the most efficient use
+of your code at the typesetting stage:
+\begin{enumerate}
+\item[(i)] keep your own macros to an absolute minimum;
+
+\item[(ii)] as \TeX\ is designed to make sensible spacing
+decisions by itself, do \textit{not} use explicit horizontal or
+vertical spacing commands, except in a few accepted (mostly
+mathematical) situations, such as \verb"\," before a
+differential~d, or \verb"\quad" to separate an equation from its
+qualifier;
+
+\item[(iii)] follow the journal reference style (a \textsf{\journalclassshort} bst file is available).
+\end{enumerate}
+
+\section{Getting Started} The \textsf{\journalclassshort} class file should run
+on any standard \LaTeXe\ installation. If any of the fonts, style
+files or packages it requires are missing from your installation,
+they can be found on the \textit{\TeX\ Collection} DVDs or downloaded from
+CTAN.
+
+\begin{figure*}
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{0pt}%
+\begin{center}
+\begin{boxedverbatim}
+\documentclass[<options>]{TRR}
+
+\begin{document}
+
+\runninghead{<Author surnames>}
+
+\title{<Title case>}
+
+\author{<An Author\affilnum{1},
+Someone Else\affilnum{2} and
+Perhaps Another\affilnum{1}>}
+
+\affiliation{<\affilnum{1}First and third authors' affiliation\\
+\affilnum{2}Second author affiliation>}
+
+\corrauth{<Corresponding author's name and email address>}
+
+\begin{abstract}
+<Text>
+\end{abstract}
+
+\maketitle
+
+\noindent <The first paragraph of text should not have a heading like `Background'
+            or `Introduction'>
+.
+.
+.
+\end{boxedverbatim}
+\end{center}
+\caption{Example header text.\label{F1}}
+\end{figure*}
+
+\section{The Article Header Information}
+The heading for any file using \textsf{\journalclass} is shown in
+Figure~\ref{F1}.  \textit{Transportation Research Record} is published using Times fonts and this is
+achieved by using the \verb"times"
+option as\\
+\verb"\documentclass[times]{TRR}"
+
+\noindent If for any reason you have a problem using Times you can
+easily resort to Computer Modern fonts by removing the
+\verb"times" option.
+
+\subsection{Remarks}
+\begin{enumerate}
+\item[(i)] In \verb"\runninghead" use `{et~al}' if there
+are three or more authors.
+
+\item[(ii)] For multiple author papers please note the use of \verb"\affilnum" to
+link names and affiliations. The corresponding author details need to be included using the
+\verb+\corrauth+ command.
+
+\item[(iii)] For submitting a double-spaced manuscript, add
+\verb"doublespace" as an option to the documentclass line.
+
+\item[(iv)] The abstract should be capable of standing by itself,
+in the absence of the body of the article and of the bibliography.
+Therefore, it must not contain any reference citations.
+
+%\item[(v)] Keywords are separated by commas.
+
+\item[(vi)] If you are submitting to a \textit{SAGE} journal that requires numbered sections (for example, IJRR), please add the command
+  \verb+\setcounter{secnumdepth}{3}+ just above the \verb+\begin{document}+ line.
+
+\end{enumerate}
+
+
+\section{The Body of the Article}
+
+\subsection{Mathematics} \textsf{\journalclass} makes the full
+functionality of \AmS\/\TeX\ available. We encourage the use of
+the \verb"align", \verb"gather" and \verb"multline" environments
+for displayed mathematics. \textsf{amsthm} is used for setting
+theorem-like and proof environments. The usual \verb"\newtheorem"
+command needs to be used to set up the environments for your
+particular document.
+
+\subsection{Figures and Tables} \textsf{\journalclass} includes the
+\textsf{graphicx} package for handling figures.
+
+Figures are called in as follows:
+\begin{verbatim}
+\begin{figure}
+\centering
+\includegraphics{<figure name>}
+\caption{<Figure caption>}
+\end{figure}
+\end{verbatim}
+
+For further details on how to size figures, etc., with the
+\textsf{graphicx} package see, for example, \cite{R1}
+or \cite{R3}.
+
+The standard coding for a table is shown in Figure~\ref{F2}.
+
+\begin{figure}
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{0pt}%
+\begin{center}
+\begin{boxedverbatim}
+\begin{table}
+\small\sf\centering
+\caption{<Table caption>}
+\begin{tabular}{<table alignment>}
+\toprule
+<column headings>\\
+\midrule
+<table entries
+(separated by & as usual)>\\
+<table entries>\\
+.
+.
+.\\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{boxedverbatim}
+\end{center}
+\caption{Example table layout.\label{F2}}
+\end{figure}
+
+\subsection{Cross-referencing}
+The use of the \LaTeX\ cross-reference system
+for figures, tables, equations, etc., is encouraged
+(using \verb"\ref{<name>}" and \verb"\label{<name>}").
+
+\subsection{End of Paper Special Sections}
+The endmatter order should be as follows (please note that only the Author Contributions, Declaration of Conflicting Interests, and Funding statements will appear in every article):
+\begin{itemize}
+\item	Authors’ Note
+\item	Acknowledgments
+\item	Author Contributions
+\item	Declaration of Conflicting Interests
+\item	Funding
+\item	Data Accessibility Statement
+\end{itemize}
+
+The commands available are:
+\begin{verbatim}
+\begin{an}
+To typeset an
+  "Authors' Note" section.
+\end{an}
+\end{verbatim}
+
+\begin{verbatim}
+\begin{acks}
+To typeset an
+  "Acknowledgements" section.
+\end{acks}
+\end{verbatim}
+
+\begin{verbatim}
+\begin{ac}
+<To typeset an
+  "Author Contributions" section.>
+  
+The authors confirm contribution to
+the paper as follows: study conception
+and design: X. Author, Y. Author; 
+data collection: Y. Author; 
+analysis and interpretation of 
+results: X. Author, Y. Author. Z. 
+Author; draft manuscript preparation:
+Y. Author. Z. Author. 
+All authors reviewed the results and
+approved the final version 
+of the manuscript.
+\end{ac}
+\end{verbatim}
+
+\begin{verbatim}
+\begin{dci}
+To typeset a "Declaration of
+  conflicting interests" section.
+\end{dci}
+\end{verbatim}
+
+\begin{verbatim}
+\begin{funding}
+To typeset a "Funding" section.
+\end{funding}
+\end{verbatim}
+
+\begin{verbatim}
+\begin{das}
+To typeset a "Data Accessibility
+  Statement" section.
+\end{das}
+\end{verbatim}
+
+\subsection{References}
+Please note that the file \textsf{TRR.bst} is included with the class file
+for those authors using \BibTeX.
+The bst file works in a completely standard way:
+\begin{verbatim}
+\bibliographystyle{TRR}
+\bibliography{<YourBibfile.bib>}
+\end{verbatim}
+
+\section{Copyright Statement}
+Please  be  aware that the use of  this \LaTeXe\ class file is
+governed by the following conditions.
+
+\subsection{Copyright}
+Copyright \copyright\ \volumeyear\ SAGE Publications Ltd,
+1 Oliver's Yard, 55 City Road, London, EC1Y~1SP, UK. All
+rights reserved.
+
+\subsection{Rules of Use}
+This class file is made available for use by authors who wish to
+prepare an article for publication in \textit{Transportation Research Record}.
+The user may not exploit any
+part of the class file commercially.
+
+This class file is provided on an \textit{as is}  basis, without
+warranties of any kind, either express or implied, including but
+not limited to warranties of title, or implied  warranties of
+merchantablility or fitness for a particular purpose. There will
+be no duty on the author[s] of the software or SAGE Publications Ltd
+to correct any errors or defects in the software. Any
+statutory  rights you may have remain unaffected by your
+acceptance of these rules of use.
+
+\begin{acks}
+This class file was developed by Sunrise Setting Ltd,
+Brixham, Devon, UK.\\
+Website: \url{http://www.sunrise-setting.co.uk}
+\end{acks}
+
+\begin{thebibliography}{99}
+\bibitem{R1}
+Kopka,~H., and P. W. Daly. \textit{A Guide to \LaTeX}, 4th~edn.
+Addison-Wesley, 2003.
+
+\bibitem{R2}
+Lamport,~L. \textit{\LaTeX: a Document Preparation System},
+2nd~edn. Addison-Wesley, 1994.
+
+\bibitem{R3}
+Mittelbach,~F., and M. Goossens. \textit{The \LaTeX\ Companion},
+2nd~edn. Addison-Wesley, 2004.
+
+\end{thebibliography}
+
+\end{document}
